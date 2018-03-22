@@ -1,5 +1,6 @@
 datasets <- as.data.table(suppressWarnings(data(package = .packages(all.available = TRUE))$results))
 # do some string splitting to convert for exmple "fdeaths (UKLungDeaths)" into two columns
+ObjName <- Package <- NULL
 datasets[, ObjName := Item]
 datasets[, SourceName := Item]
 spl <- strsplit(datasets$Item, ' (', fixed = TRUE)
