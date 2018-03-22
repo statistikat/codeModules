@@ -1,0 +1,12 @@
+Package: codeModules
+Type: Package
+Title: Collection of shiny modules for reproducible code
+Version: 1.0
+Date: 2018-03-22
+Imports: data.table
+Author: Gregor de Cillia
+Maintainer: Gregor de Cillia  <Gregor.DeCillia@statistik.gv.at>
+Description: hmm..
+License: What license is it under?
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
