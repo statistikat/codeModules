@@ -64,7 +64,7 @@ libData <- function(input, output, session, assignTo = "dt"){
     req(rdfile %in% names(db))
     tools::Rd2HTML(db[[rdfile]], tmp, no_links = TRUE, package = input$Package)
     showModal(modalDialog(
-      title = paste("Dokumentation für", input$ObjName),
+      title = p("Documentation of", code(input$ObjName)),
       includeHTML(tmp), size = "l", easyClose = TRUE
     ))
   })
