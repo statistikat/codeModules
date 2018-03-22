@@ -6,6 +6,7 @@ Date: 2018-03-22
 Depends: shiny
 Imports: data.table
 Author: Gregor de Cillia
+Authors@R: c(person("Gregor", "de Cillia", role = c("aut", "cre")))
 Maintainer: Gregor de Cillia  <Gregor.DeCillia@statistik.gv.at>
 Description: hmm..
 License: GPL-3

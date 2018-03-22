@@ -23,7 +23,7 @@ Read data via \code{utils::data} and import it into R. The ui includes a "show d
 to give info about the datasets.
 }
 \examples{
-if(interactive()){
+\dontrun{
 
 shinyApp(
   ui = fluidPage(

@@ -25,7 +25,7 @@ for(i in 1:nrow(datasets)){
 #' }
 #'
 #' @examples
-#' if(interactive()){
+#' \dontrun{
 #'
 #' shinyApp(
 #'   ui = fluidPage(

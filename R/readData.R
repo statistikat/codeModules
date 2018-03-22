@@ -10,7 +10,7 @@
 #' @return A reactive string representing the code to read the dataset.
 #'
 #' @examples
-#' if(interactive()){
+#' \dontrun{
 #'
 #' shinyApp(
 #'   fluidPage(

@@ -22,7 +22,7 @@ Shiny module for reading data into R. currently, the formats \code{.csv}, \code{
 and \code{.Rdata} are supported. the following formats will be mapped \code{.txt -> .csv}, \code{.xls -> .xlsx}.
 }
 \examples{
-if(interactive()){
+\dontrun{
 
 shinyApp(
   fluidPage(
