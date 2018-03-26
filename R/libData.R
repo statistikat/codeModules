@@ -73,7 +73,7 @@ libData <- function(input, output, session, assignTo = "dt"){
   return(eventReactive(input$select, {
     row <- datasets[Package == input$Package & ObjName == input$ObjName, ]
     paste0(
-      "data(", shQuote(row$SourceName[1]), ", package = ", shQuote(input$Package), ")", "\n",
+      funCode("data", list(row$SourceName[1], package = input$Package)), "\n",
       assignTo, " <- ", input$ObjName
     )
   }))

@@ -46,16 +46,16 @@ readData <- function(input, output, session, path, callback = function(){}){
   })
 
   code <- eventReactive(input$read, {
-    qp <- shQuote(path())
+    fp <- list(file = path())
 
     paste0(
       switch(
         fileType(),
-        csv = paste0('read.table(', qp ,', header=', input$header, ', sep="', input$sep, '")'),
-        Rdata = paste0('get(load(file = ', qp, '))'),
-        xlsx = paste0('readWorksheetFromFile(', qp, ', header=', input$header, ', sheet=1)'),
-        sav = paste0('read_spss(file = ', qp,')'),
-        rds = paste0('readRDS(', qp,')'),
+        csv = funCode(funName = "read.table", c(fp, header = input$header, sep = input$sep)),
+        Rdata = paste("get(", funCode("load", fp), ")"),
+        xlsx = funCode("readWorksheetFromFile", list(fp, header = input$header, sheet = 1)),
+        sav = funCode("read_spss", fp),
+        rds = funCode("readRDS", fp),
         {
           callback()
           "NULL"
