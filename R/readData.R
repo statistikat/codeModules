@@ -5,7 +5,8 @@
 #'
 #' @export
 #'
-#' @param path A reactive value representing the path of the file to be read
+#' @param input,output,session Standard module parameters.
+#' @param path A reactive value representing the path of the file to be read.
 #' @param callback A function that will be called in case of unsupported formats. Should have no arguments.
 #' @return A reactive string representing the code to read the dataset.
 #'
@@ -68,6 +69,7 @@ readData <- function(input, output, session, path, callback = function(){}){
 }
 
 #' @rdname readData
+#' @param id The module identifier.
 #' @export
 readDataUI <- function(id){
   ns <- NS(id)

@@ -10,10 +10,16 @@ libData(input, output, session, assignTo = "dt")
 libDataUI(id, selected = "graphSTAT")
 }
 \arguments{
-\item{assignTo}{A character vector of length one. The symbol to assign the data to in the code}
+\item{input, output, session}{Standard module parameters.}
+
+\item{assignTo}{A character vector of length one. The symbol to assign the data to in the code.}
+
+\item{id}{The module identifier.}
+
+\item{selected}{The R package initially selected in the GUI.}
 }
 \value{
-A reactive string representing the import of the dataset. for example
+A reactive string representing the import of the dataset. for example.
 \preformatted{
 "data('Arthritis', package = 'vcd')\ndt <- Arthritis"
 }

@@ -5,7 +5,7 @@
 #' @param args a named, partly named or unnamed list containing the parameters for the function.
 #'             Supported types are `logical`, `numeric` and `character`.Entries of `NULL`, `NA`,
 #'             `""` and `"NA"` will be ignored.
-#' @param funName Name of the function to call in the string
+#' @param funName Name of the function to call in the string.
 #' @export
 #' @return A character vector of length one
 #' @examples

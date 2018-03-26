@@ -4,9 +4,10 @@ Title: Collection of shiny modules for reproducible code
 Version: 1.0
 Date: 2018-03-22
 Depends: shiny
-Imports: data.table
+Imports: data.table, dplyr
 Author: Gregor de Cillia
-Authors@R: c(person("Gregor", "de Cillia", role = c("aut", "cre")))
+Authors@R: c(person("Gregor", "de Cillia", role = c("aut", "cre"), 
+                    email = "Gregor.DeCillia@statistik.gv.at"))
 Maintainer: Gregor de Cillia  <Gregor.DeCillia@statistik.gv.at>
 Description: hmm..
 License: GPL-3

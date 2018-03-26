@@ -17,9 +17,10 @@ for(i in 1:nrow(datasets)){
 #' Read data via `utils::data` and import it into R. The ui includes a "show documentation" button
 #' to give info about the datasets.
 #'
-#' @param assignTo A character vector of length one. The symbol to assign the data to in the code
+#' @param assignTo A character vector of length one. The symbol to assign the data to in the code.
+#' @param input,output,session Standard module parameters.
 #'
-#' @return A reactive string representing the import of the dataset. for example
+#' @return A reactive string representing the import of the dataset. for example.
 #' \preformatted{
 #' "data('Arthritis', package = 'vcd')\ndt <- Arthritis"
 #' }
@@ -80,6 +81,8 @@ libData <- function(input, output, session, assignTo = "dt"){
 }
 
 #' @rdname libData
+#' @param selected The R package initially selected in the GUI.
+#' @param id The module identifier.
 #' @export
 libDataUI <- function(id, selected = "graphSTAT"){
   ns <- NS(id)

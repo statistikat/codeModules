@@ -10,9 +10,13 @@ readData(input, output, session, path, callback = function() { })
 readDataUI(id)
 }
 \arguments{
-\item{path}{A reactive value representing the path of the file to be read}
+\item{input, output, session}{Standard module parameters.}
+
+\item{path}{A reactive value representing the path of the file to be read.}
 
 \item{callback}{A function that will be called in case of unsupported formats. Should have no arguments.}
+
+\item{id}{The module identifier.}
 }
 \value{
 A reactive string representing the code to read the dataset.
