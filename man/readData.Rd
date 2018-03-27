@@ -5,7 +5,8 @@
 \alias{readDataUI}
 \title{Read data in different formats (xlsx, rds, csv, ...)}
 \usage{
-readData(input, output, session, path, callback = function() { })
+readData(input, output, session, path, callback = function() { },
+  symbol = NULL)
 
 readDataUI(id)
 }
@@ -15,6 +16,9 @@ readDataUI(id)
 \item{path}{A reactive value representing the path of the file to be read.}
 
 \item{callback}{A function that will be called in case of unsupported formats. Should have no arguments.}
+
+\item{symbol}{Optional: A symbol to use in the import code in place of the path. This is useful if the
+path has previously been saved as a variable.}
 
 \item{id}{The module identifier.}
 }
