@@ -54,7 +54,7 @@ readData <- function(input, output, session, path, callback = function(){}){
         fileType(),
         csv = funCode(funName = "read.table", c(fp, header = input$header, sep = input$sep)),
         Rdata = paste("get(", funCode("load", fp), ")"),
-        xlsx = funCode("readWorksheetFromFile", list(fp, header = input$header, sheet = 1)),
+        xlsx = funCode("readWorksheetFromFile", c(fp, header = input$header, sheet = 1)),
         sav = funCode("read_spss", fp),
         rds = funCode("readRDS", fp),
         {
