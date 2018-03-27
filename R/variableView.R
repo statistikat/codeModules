@@ -33,20 +33,31 @@
 variableView <- function(input, output, session, dataset, dataName = "dat"){
   ns <- session$ns
 
+  ds <- reactive({dataset()})
+
   shinyInput = function(FUN, len, id, values, ...) {
     inputs = character(len)
     for (i in seq_len(len)) {
-      inputs[i] = as.character(FUN(ns(paste0(id, i)), label = NULL, value = values[i], ...))
+      inputs[i] = as.character(textInput(ns(
+        paste0(id, i)), label = NULL,
+        value = values[i]))
     }
     inputs
   }
 
   selectInputVec <- function(FUN, len, id, selecteds, ...){
-    inputs <- character(len)
-    for (i in seq_len(len)){
-      inputs[i] <- as.character(FUN(ns(paste0(id, i)), label = NULL, selected = selecteds[i], ...))
-    }
-    inputs
+    ## FUN: `radioButtons` or `selectInput(..., multiple = TRUE)`
+    unlist(lapply(seq_len(len), function(i){
+      class <- selecteds[i]
+      if(class == "integer") class <- "numeric"
+      choices <- switch(
+        class,
+        factor = c("factor", "character"),
+        numeric = c("numeric", "factor", "character"),
+        character = c("factor", "character")
+      )
+      as.character(FUN(ns(paste0(id, i)), label = NULL, selected = class, choices = choices, ...))
+    }))
   }
 
   filterInputs <- function(len, id){
@@ -90,7 +101,7 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
       name = shinyInput(textInput, ncol(ds), "name", names(ds)),
       class = selectInputVec(
         radioButtons, ncol(ds), "class", selecteds = as.character(vapply(ds, class, "")),
-        choices = c("numeric", "factor", "character"), inline = TRUE
+        inline = TRUE
       ),
       filter = filterInputs(ncol(ds), id = "filter"),
       stringsAsFactors = FALSE
