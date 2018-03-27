@@ -26,9 +26,8 @@ This module gives a way to recode dataframes by changing column names and column
 datasets can be filtered based on UI inputs.
 }
 \examples{
-data("tips", package = reshape2)
+data("tips", package = "reshape2")
 ## no proper handling for integers yet
-tips$size <- as.numeric(tips$size)
 shinyApp(
   fluidPage(
     column(6, variableViewUI("vv")),
@@ -42,6 +41,7 @@ shinyApp(
       eval(parse(text = code()))
       dat
    })
-  }
+  },
+  options = list(launch.browser = TRUE)
 )
 }

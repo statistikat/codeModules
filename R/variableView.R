@@ -12,9 +12,8 @@
 #' @export
 #'
 #' @examples
-#' data("tips", package = reshape2)
+#' data("tips", package = "reshape2")
 #' ## no proper handling for integers yet
-#' tips$size <- as.numeric(tips$size)
 #' shinyApp(
 #'   fluidPage(
 #'     column(6, variableViewUI("vv")),
@@ -28,7 +27,8 @@
 #'       eval(parse(text = code()))
 #'       dat
 #'    })
-#'   }
+#'   },
+#'   options = list(launch.browser = TRUE)
 #' )
 variableView <- function(input, output, session, dataset, dataName = "dat"){
   ns <- session$ns
