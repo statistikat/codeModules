@@ -18,14 +18,17 @@
 #' ## no proper handling for integers yet
 #' shinyApp(
 #'   fluidPage(
+#'     selectInput("dataset", "choose dataset", choices = c("mtcars", "tips")),
 #'     column(6, variableViewUI("vv")),
 #'     column(6, verbatimTextOutput("code"), DTOutput("filtered"))
 #'   ),
 #'   function(input, output, session){
-#'     code <- callModule(variableView, "vv", reactive({tips}))
+#'     dataset <- reactive({get(input$dataset)})
+#'
+#'     code <- callModule(variableView, "vv", dataset)
 #'     output$code <- renderText({ code() })
 #'     output$filtered <- renderDT({
-#'       dat <- tips
+#'       dat <- isolate(dataset())
 #'       eval(parse(text = code()))
 #'       dat
 #'    })
