@@ -13,6 +13,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' data("tips", package = "reshape2")
 #' ## no proper handling for integers yet
 #' shinyApp(
@@ -31,6 +32,7 @@
 #'   },
 #'   options = list(launch.browser = TRUE)
 #' )
+#' }
 variableView <- function(input, output, session, dataset, dataName = "dat"){
   ns <- session$ns
 

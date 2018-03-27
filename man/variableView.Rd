@@ -26,6 +26,7 @@ This module gives a way to recode dataframes by changing column names and column
 datasets can be filtered based on UI inputs.
 }
 \examples{
+\dontrun{
 data("tips", package = "reshape2")
 ## no proper handling for integers yet
 shinyApp(
@@ -44,4 +45,5 @@ shinyApp(
   },
   options = list(launch.browser = TRUE)
 )
+}
 }
