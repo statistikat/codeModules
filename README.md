@@ -29,3 +29,4 @@ Implemented Modules
 
 -   **libData**: read data from `R` packages using `utils::data`
 -   **readData**: read data from a file using `read.csv`, `read.xlsx` or others depending on the fileextension.
+-   **variableView** Rename columns, filter data and change column types. The ui is oriented on the "variable view" in SPSS
