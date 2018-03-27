@@ -4,7 +4,8 @@ Title: Collection of shiny modules for reproducible code
 Version: 1.0
 Date: 2018-03-22
 Depends: shiny
-Imports: data.table, dplyr
+Imports: data.table, dplyr, DT, htmlwidgets
+Suggests: reshape2
 Author: Gregor de Cillia
 Authors@R: c(person("Gregor", "de Cillia", role = c("aut", "cre"), 
                     email = "Gregor.DeCillia@statistik.gv.at"))

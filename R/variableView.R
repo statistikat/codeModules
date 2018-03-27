@@ -8,6 +8,7 @@
 #' @param dataName A `character` of length one giving the name of the dataset.
 #'
 #' @return A reactive string representing the code to transform the dataset.
+#' @importFrom htmlwidgets JS
 #'
 #' @export
 #'
