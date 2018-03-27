@@ -60,8 +60,7 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
   selectInputVec <- function(FUN, len, id, selecteds, ...){
     ## FUN: `radioButtons` or `selectInput(..., multiple = TRUE)`
     unlist(lapply(seq_len(len), function(i){
-      class <- selecteds[i]
-      if(class == "integer") class <- "numeric"
+      class <- switch(selecteds[i], integer = "numeric", labelled = "factor", selecteds[i])
       choices <- switch(
         class,
         factor = c("factor", "character"),
