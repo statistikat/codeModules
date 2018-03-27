@@ -35,8 +35,14 @@
 #' }
 variableView <- function(input, output, session, dataset, dataName = "dat"){
   ns <- session$ns
+  initialized <- reactiveVal(FALSE)
 
-  ds <- reactive({dataset()})
+  ds <- reactive({
+    if(isolate(initialized()))
+      session$sendCustomMessage('unbind-DT', 'table')
+    initialized(TRUE)
+    dataset()
+  })
 
   shinyInput = function(FUN, len, id, values, ...) {
     inputs = character(len)
@@ -66,11 +72,13 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
   filterInputs <- function(len, id){
     inputs <- character(len)
     inputs <- unlist(lapply(seq_len(len), function(i){
-      output[[paste(id, i)]] <- renderUI({
+      output[[paste0(id,"output", i)]] <- renderUI({
         ds <- dataset()
+        req(ncol(ds) >= i)
         switch(
           input[[paste0("class", i)]],
           numeric = {
+            req(is.numeric(ds[[i]]))
             mins <- min(ds[[i]])
             maxs <- max(ds[[i]])
             div(style = "height: 45px;", sliderInput(
@@ -85,7 +93,7 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
         )
       })
 
-      as.character(uiOutput(ns(paste(id, i))))
+      as.character(uiOutput(ns(paste0(id, "output", i))))
     }))
     inputs
   }
@@ -99,7 +107,8 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
   }
 
   output$table <- renderDT({
-    ds <- dataset()
+    ds <- ds()
+
     df <- data.frame(
       name = shinyInput(textInput, ncol(ds), "name", names(ds)),
       class = selectInputVec(
@@ -179,6 +188,9 @@ variableViewUI <- function(id){
   ns <- NS(id)
   tagList(
     DTOutput(ns("table")),
+    tags$script(HTML(paste0("Shiny.addCustomMessageHandler('unbind-DT', function(id) {
+          Shiny.unbindAll($('#", id,"-'+id).find('table').DataTable().table().node());
+        })"))),
     actionButton(ns("button"), "apply changes")
   )
 }
