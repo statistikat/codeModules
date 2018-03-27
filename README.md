@@ -7,8 +7,8 @@ About
 This R package consists of several [shiny modules](https://shiny.rstudio.com/articles/modules.html) that return R code in the form of `reactive` characters. All those modules represent common operations regarding
 
 -   Import of data (`read.csv`, `read.xlsx`, `data()`, ...)
--   ~~Manipulation of data (either with `dplyr` or `data.table`)~~
--   ~~export of data (`write.csv`, `read.xlsx`, ...)~~
+-   Manipulation of data (rename columns, change column classes, filtering)
+-   ~~export of data (`write.csv`, `write.xlsx`, ...)~~
 
 Usage
 -----
