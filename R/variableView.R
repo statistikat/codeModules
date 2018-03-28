@@ -14,19 +14,20 @@
 #'
 #' @examples
 #' \dontrun{
+#' library(DT)
 #' data("tips", package = "reshape2")
 #' ## no proper handling for integers yet
 #' shinyApp(
 #'   fluidPage(
 #'     selectInput("dataset", "choose dataset", choices = c("mtcars", "tips")),
 #'     column(6, variableViewUI("vv")),
-#'     column(6, verbatimTextOutput("code"), DTOutput("filtered"))
+#'     column(6, codeOutput("code"), DTOutput("filtered"))
 #'   ),
 #'   function(input, output, session){
 #'     dataset <- reactive({get(input$dataset)})
 #'
 #'     code <- callModule(variableView, "vv", dataset)
-#'     output$code <- renderText({ code() })
+#'     output$code <- renderCode({ code() })
 #'     output$filtered <- renderDT({
 #'       dat <- isolate(dataset())
 #'       eval(parse(text = code()))

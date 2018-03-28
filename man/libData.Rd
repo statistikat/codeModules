@@ -34,12 +34,12 @@ to give info about the datasets.
 shinyApp(
   ui = fluidPage(
     libDataUI("import"),
-    verbatimTextOutput("code"),
+    codeOutput("code"),
     dataTableOutput("table")
   ),
   server = function(input, output, session){
     code <- callModule(libData, "import")
-    output$code <- renderText(code())
+    output$code <- renderCode(code())
     output$table <- renderDataTable({
       eval(parse(text = code()))
       dt

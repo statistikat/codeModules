@@ -36,11 +36,11 @@ shinyApp(
   fluidPage(
     textInput("path", "choose a path", value = "mtcars.csv"),
     readDataUI("readDataId"),
-    verbatimTextOutput("code")
+    codeOutput("code")
   ),
   function(input, output, session){
     code <- callModule(readData, "readDataId", reactive(input$path))
-    output$code <- renderText({code()})
+    output$code <- renderCode({code()})
   }
 )
 
