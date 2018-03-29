@@ -8,7 +8,7 @@ This R package consists of several [shiny modules](https://shiny.rstudio.com/art
 
 -   Import of data (`read.csv`, `read.xlsx`, `data()`, ...)
 -   Manipulation of data (rename columns, change column classes, filtering)
--   ~~export of data (`write.csv`, `write.xlsx`, ...)~~
+-   export of data (`write.csv`, `write.xlsx`, ...)
 
 Usage
 -----
@@ -30,3 +30,5 @@ Implemented Modules
 -   **libData**: read data from `R` packages using `utils::data`
 -   **readData**: read data from a file using `read.csv`, `read.xlsx` or others depending on the fileextension.
 -   **variableView** Rename columns, filter data and change column types. The ui is oriented on the "variable view" in SPSS
+-   **ggDownload** Download ggplot with custom height, width and filetype (`png`, `jpeg`, ...)
+-   **downloadTable** Download tables (usually `data.frames`) as `csv`, `xlsx`, `rds`.
