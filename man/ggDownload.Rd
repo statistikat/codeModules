@@ -5,18 +5,20 @@
 \alias{ggDownloadUI}
 \title{Download a ggplot object as an image file.}
 \usage{
-ggDownload(input, output, session, plotObj, plotObjName = "plot(inp)")
+ggDownload(input, output, session, plotObj, plotObjName = "ggObj")
 
-ggDownloadUI(id, buttonImg = "Download image file")
+ggDownloadUI(id, buttonText = "Download image file")
 }
 \arguments{
 \item{input, output, session}{Standard module parameters}
 
 \item{plotObj}{A reactive \code{ggplot} object}
 
-\item{id}{The module identifier}
+\item{plotObjName}{The name of the object in the resulting code}
 
-\item{objName}{The name of the object in the resulting code}
+\item{id}{The module identifier.}
+
+\item{buttonText}{Text do display on the \code{downloadButton}.}
 }
 \value{
 A reactive string that represents the code for downloading the plot.

@@ -44,8 +44,6 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
         plotObjName, "\ndev.off()\n"
       )
 
-      message(code_save$code)
-
       deviceFun <- get(input$format)
       deviceFun(file = file, width = input$width, height = input$height)
       print(plotObj())
