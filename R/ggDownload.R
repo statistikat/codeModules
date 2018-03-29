@@ -39,8 +39,7 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
     },
     content = function(file) {
       code_save$code <- paste0(
-        input$format, "(file=", shQuote(paste0("grafik.", input$format)), ", width=", input$width,
-        ", height=", input$height, ")\n",
+        funCode(input$format, list(file = paste0("grafik.", input$format), width= input$width, height = input$height)), "\n",
         plotObjName, "\ndev.off()\n"
       )
 
