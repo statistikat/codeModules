@@ -56,7 +56,7 @@ downloadButton." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codeModules</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1</span>
       </span>
     </div>
 
@@ -74,7 +74,12 @@ downloadButton." />
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/statistikat/codeModules">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -87,7 +92,7 @@ downloadButton." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Download a ggplot object as an image file.</h1>
-    
+    <small>Source: <a href='https://github.com/statistikat/codeModules/blob/master/R/ggDownload.R'><code>R/ggDownload.R</code></a></small>
     </div>
 
     
@@ -95,9 +100,9 @@ downloadButton." />
 <code>downloadButton</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>ggDownload</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>plotObj</span>, <span class='kw'>plotObjName</span> <span class='kw'>=</span> <span class='st'>"plot(inp)"</span>)
+    <pre class="usage"><span class='fu'>ggDownload</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>plotObj</span>, <span class='kw'>plotObjName</span> <span class='kw'>=</span> <span class='st'>"ggObj"</span>)
 
-<span class='fu'>ggDownloadUI</span>(<span class='no'>id</span>, <span class='kw'>buttonImg</span> <span class='kw'>=</span> <span class='st'>"Download image file"</span>)</pre>
+<span class='fu'>ggDownloadUI</span>(<span class='no'>id</span>, <span class='kw'>buttonText</span> <span class='kw'>=</span> <span class='st'>"Download image file"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -111,12 +116,16 @@ downloadButton." />
       <td><p>A reactive <code>ggplot</code> object</p></td>
     </tr>
     <tr>
-      <th>id</th>
-      <td><p>The module identifier</p></td>
+      <th>plotObjName</th>
+      <td><p>The name of the object in the resulting code</p></td>
     </tr>
     <tr>
-      <th>objName</th>
-      <td><p>The name of the object in the resulting code</p></td>
+      <th>id</th>
+      <td><p>The module identifier.</p></td>
+    </tr>
+    <tr>
+      <th>buttonText</th>
+      <td><p>Text do display on the <code>downloadButton</code>.</p></td>
     </tr>
     </table>
     
