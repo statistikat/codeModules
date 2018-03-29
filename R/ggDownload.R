@@ -5,7 +5,7 @@
 ##'
 ##' @param input,output,session Standard module parameters
 ##' @param plotObj A reactive `ggplot` object
-##' @param objName The name of the object in the resulting code
+##' @param plotObjName The name of the object in the resulting code
 ##'
 ##' @return A reactive string that represents the code for downloading the plot.
 ##'
@@ -28,6 +28,7 @@
 ##'   }
 ##' )
 ##' }
+##' @importFrom grDevices dev.off
 ##' @export
 ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
   code_save <- reactiveValues()
@@ -61,9 +62,10 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
 }
 
 #' @rdname ggDownload
-#' @param id The module identifier
+#' @param id The module identifier.
+#' @param buttonText Text do display on the `downloadButton`.
 #' @export
-ggDownloadUI <- function(id, buttonImg = "Download image file"){
+ggDownloadUI <- function(id, buttonText = "Download image file"){
   ns <- NS(id)
   tagList(
     div(align = "center", selectInput(ns("format"), "Format", c("png", "jpeg", "bmp", "tiff"))),
@@ -71,6 +73,6 @@ ggDownloadUI <- function(id, buttonImg = "Download image file"){
                                            value = 600, step = 10, width = "90%", post = " Pixel")),
     div(align = "center", sliderInput(ns("height"), label = strong("height"), min = 200, max = 2000,
                                            value = 400, step = 10, width = "90%", post = " Pixel")),
-    div(align = "center", downloadButton(ns("download"), strong(buttonImg), class = "btn-primary"))
+    div(align = "center", downloadButton(ns("download"), strong(buttonText), class = "btn-primary"))
   )
 }

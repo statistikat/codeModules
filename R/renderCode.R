@@ -59,7 +59,7 @@ includeHighlightJs <- function(){
 #' )
 #' }
 renderCode <- function(expr, env = parent.frame(), quoted = FALSE, outputArgs = list(), delay = 100){
-  installExprFunction(expr, "func", env, quoted)
+  func <- exprToFunction(expr, env, quoted)
   renderFunc <- function(shinysession, name, ...) {
     value <- func()
     for(d in delay)
