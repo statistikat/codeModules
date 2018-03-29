@@ -2,6 +2,8 @@
 
 export(codeOutput)
 export(funCode)
+export(ggDownload)
+export(ggDownloadUI)
 export(libData)
 export(libDataUI)
 export(readData)
