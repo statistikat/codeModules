@@ -39,11 +39,11 @@ readData <- function(input, output, session, path, callback = function(){}, symb
     switch(
       fileType(),
       csv = tagList(
-        checkboxInput(ns("header"), "Erste Zeile sind Variablennamen", TRUE),
-        radioButtons(ns("sep"), "Trennzeichen", c(Semicolon = ';', Tab = '\t', Comma = ','),
+        checkboxInput(ns("header"), "First row contains variable names", TRUE),
+        radioButtons(ns("sep"), "Seperator", c(Semicolon = ';', Tab = '\t', Comma = ','),
                      inline = TRUE)
       ),
-      xlsx = checkboxInput(ns("header"), "Erste Zeile sind Variablennamen", TRUE),
+      xlsx = checkboxInput(ns("header"), "First row contains variable names", TRUE),
       NULL
     )
   })
