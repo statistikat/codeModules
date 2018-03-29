@@ -14,5 +14,5 @@ Description: A collection of shiny modules for common data operations (importing
 License: GPL-3
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
-URL: https://statistikat.github.io/codeModules/
+URL: https://github.com/statistikat/codeModules
 BugReports: https://github.com/statistikat/codeModules/issues
