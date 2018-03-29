@@ -1,8 +1,8 @@
 Package: codeModules
 Type: Package
-Title: Collection of shiny modules for reproducible code
-Version: 1.0
-Date: 2018-03-22
+Title: Shiny modules for reproducible code
+Version: 0.1
+Date: 2018-03-29
 Depends: shiny
 Imports: data.table, dplyr, DT, htmlwidgets
 Suggests: reshape2
@@ -10,7 +10,9 @@ Author: Gregor de Cillia
 Authors@R: c(person("Gregor", "de Cillia", role = c("aut", "cre"), 
                     email = "Gregor.DeCillia@statistik.gv.at"))
 Maintainer: Gregor de Cillia  <Gregor.DeCillia@statistik.gv.at>
-Description: hmm..
+Description: A collection of shiny modules for common data operations (importing, exproting, manipulation). All modules from this package return code in the form of reactive (observable) strings.
 License: GPL-3
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
+URL: https://statistikat.github.io/codeModules/
+BugReports: https://github.com/statistikat/codeModules/issues
