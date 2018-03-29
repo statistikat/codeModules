@@ -5,7 +5,7 @@
 \alias{libDataUI}
 \title{Read data from installed packages}
 \usage{
-libData(input, output, session, assignTo = "dt")
+libData(input, output, session, assignTo = "dt", ignoreStyleSheet = TRUE)
 
 libDataUI(id, selected = "graphSTAT")
 }
@@ -13,6 +13,9 @@ libDataUI(id, selected = "graphSTAT")
 \item{input, output, session}{Standard module parameters.}
 
 \item{assignTo}{A character vector of length one. The symbol to assign the data to in the code.}
+
+\item{ignoreStyleSheet}{By default, the R documentation pages use a special \code{css} sheet for styling.
+Set this option to \code{FALSE} to load this stylesheet.}
 
 \item{id}{The module identifier.}
 

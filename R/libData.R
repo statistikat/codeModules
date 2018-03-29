@@ -19,6 +19,8 @@ for(i in 1:nrow(datasets)){
 #'
 #' @param assignTo A character vector of length one. The symbol to assign the data to in the code.
 #' @param input,output,session Standard module parameters.
+#' @param ignoreStyleSheet By default, the R documentation pages use a special `css` sheet for styling.
+#'                         Set this option to `FALSE` to load this stylesheet.
 #'
 #' @return A reactive string representing the import of the dataset. for example.
 #' \preformatted{
@@ -46,7 +48,7 @@ for(i in 1:nrow(datasets)){
 #'
 #' }
 #' @export
-libData <- function(input, output, session, assignTo = "dt"){
+libData <- function(input, output, session, assignTo = "dt", ignoreStyleSheet = TRUE){
   shiny::addResourcePath("rcss", system.file("html", package = "codeModules"))
 
   observeEvent(
@@ -66,9 +68,14 @@ libData <- function(input, output, session, assignTo = "dt"){
     db <- tools::Rd_db(input$Package)
     rdfile <- paste0(topic, ".Rd")
     req(rdfile %in% names(db))
-    tools::Rd2HTML(db[[rdfile]], tmp, no_links = TRUE, package = input$Package)
+    tools::Rd2HTML(db[[rdfile]], tmp, no_links = TRUE, package = input$Package, stylesheet = "rcss/R.css")
 
-    readLines(tmp) %>% gsub(pattern = "R.css", replacement = "rcss/R.css") %>% writeLines(tmp)
+    ## TODO; Find a proper way of removing the css inclusion or load the css file locally somehow.
+    if(ignoreStyleSheet){
+      xx <- readLines(tmp)
+      xx <- xx[-3]
+      writeLines(xx, tmp)
+    }
 
     showModal(modalDialog(
       title = p("Documentation of", code(input$ObjName)),
