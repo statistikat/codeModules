@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read data from installed packages — libData • codeModules</title>
+<title>Download tables in different formats — downloadTable • codeModules</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,10 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Read data from installed packages — libData" />
+<meta property="og:title" content="Download tables in different formats — downloadTable" />
 
-<meta property="og:description" content="Read data via utils::data and import it into R. The ui includes a "show documentation" button
-to give info about the datasets." />
+<meta property="og:description" content="This module uses downloadHandler to allow downloads of tables in different formats (xlsx,
+rds, adn csv)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -91,71 +91,54 @@ to give info about the datasets." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read data from installed packages</h1>
-    <small>Source: <a href='https://github.com/statistikat/codeModules/blob/master/R/libData.R'><code>R/libData.R</code></a></small>
+    <h1>Download tables in different formats</h1>
+    <small>Source: <a href='https://github.com/statistikat/codeModules/blob/master/R/downloadTable.R'><code>R/downloadTable.R</code></a></small>
     </div>
 
     
-    <p>Read data via <code><a href='http://www.rdocumentation.org/packages/utils/topics/data'>utils::data</a></code> and import it into R. The ui includes a "show documentation" button
-to give info about the datasets.</p>
+    <p>This module uses <code>downloadHandler</code> to allow downloads of tables in different formats (xlsx,
+rds, adn csv).</p>
     
 
-    <pre class="usage"><span class='fu'>libData</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='kw'>assignTo</span> <span class='kw'>=</span> <span class='st'>"dt"</span>, <span class='kw'>ignoreStyleSheet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>downloadTable</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>rTable</span>, <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"tableFile"</span>)
 
-<span class='fu'>libDataUI</span>(<span class='no'>id</span>, <span class='kw'>selected</span> <span class='kw'>=</span> <span class='st'>"graphSTAT"</span>)</pre>
+<span class='fu'>downloadTableUI</span>(<span class='no'>id</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input, output, session</th>
-      <td><p>Standard module parameters.</p></td>
+      <td><p>Standard module parameters</p></td>
     </tr>
     <tr>
-      <th>assignTo</th>
-      <td><p>A character vector of length one. The symbol to assign the data to in the code.</p></td>
+      <th>rTable</th>
+      <td><p>A reactive table (for example a <code>data.frame</code>)</p></td>
     </tr>
     <tr>
-      <th>ignoreStyleSheet</th>
-      <td><p>By default, the R documentation pages use a special <code>css</code> sheet for styling.
-Set this option to <code>FALSE</code> to load this stylesheet.</p></td>
+      <th>fileName</th>
+      <td><p>A prefix for the default name in the download handler.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>The module identifier.</p></td>
-    </tr>
-    <tr>
-      <th>selected</th>
-      <td><p>The R package initially selected in the GUI.</p></td>
+      <td><p>The module identifier</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A reactive string representing the import of the dataset. for example.</p><pre>
-"data('Arthritis', package = 'vcd')\ndt &lt;- Arthritis"
-</pre>
-
+    <p>Currently, no reactive code is returned due to issues with <code>downloadTable</code>. See
+<a href='https://stackoverflow.com/questions/45458348/'>here</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='fu'>shinyApp</span>(
-  <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'>fluidPage</span>(
-    <span class='fu'>libDataUI</span>(<span class='st'>"import"</span>),
-    <span class='fu'><a href='renderCode.html'>codeOutput</a></span>(<span class='st'>"code"</span>),
-    <span class='fu'>dataTableOutput</span>(<span class='st'>"table"</span>)
-  ),
-  <span class='kw'>server</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>){
-    <span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>(<span class='no'>libData</span>, <span class='st'>"import"</span>)
-    <span class='no'>output</span>$<span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='renderCode.html'>renderCode</a></span>(<span class='fu'>code</span>())
-    <span class='no'>output</span>$<span class='no'>table</span> <span class='kw'>&lt;-</span> <span class='fu'>renderDataTable</span>({
-      <span class='fu'>eval</span>(<span class='fu'>parse</span>(<span class='kw'>text</span> <span class='kw'>=</span> <span class='fu'>code</span>()))
-      <span class='no'>dt</span>
-    })
+  <span class='fu'>fluidPage</span>(<span class='fu'>downloadTableUI</span>(<span class='st'>"downloadTable"</span>)),
+  <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>) {
+    <span class='fu'>callModule</span>(<span class='no'>downloadTable</span>, <span class='st'>"downloadTable"</span>, <span class='fu'>reactive</span>({<span class='no'>mtcars</span>}), <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"mtcars"</span>)
   }
 )
-
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
