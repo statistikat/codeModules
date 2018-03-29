@@ -47,6 +47,8 @@ for(i in 1:nrow(datasets)){
 #' }
 #' @export
 libData <- function(input, output, session, assignTo = "dt"){
+  shiny::addResourcePath("rcss", system.file("html", package = "codeModules"))
+
   observeEvent(
     input$Package,
     updateSelectInput(
@@ -65,6 +67,9 @@ libData <- function(input, output, session, assignTo = "dt"){
     rdfile <- paste0(topic, ".Rd")
     req(rdfile %in% names(db))
     tools::Rd2HTML(db[[rdfile]], tmp, no_links = TRUE, package = input$Package)
+
+    readLines(tmp) %>% gsub(pattern = "R.css", replacement = "rcss/R.css") %>% writeLines(tmp)
+
     showModal(modalDialog(
       title = p("Documentation of", code(input$ObjName)),
       includeHTML(tmp), size = "l", easyClose = TRUE
