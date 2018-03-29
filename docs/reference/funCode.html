@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • codeModules</title>
+<title>Generate code for function call — funCode • codeModules</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,7 +25,10 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Generate code for function call — funCode" />
+
+<meta property="og:description" content="Creates a string that reptresents a function call based on an argument list." />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -40,7 +43,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -80,73 +83,52 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Generate code for function call</h1>
+    
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    
+    <p>Creates a string that reptresents a function call based on an argument list.</p>
+    
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <pre class="usage"><span class='fu'>funCode</span>(<span class='no'>funName</span>, <span class='no'>args</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>funName</th>
+      <td><p>Name of the function to call in the string.</p></td>
+    </tr>
+    <tr>
+      <th>args</th>
+      <td><p>a named, partly named or unnamed list containing the parameters for the function.
+Supported types are <code>logical</code>, <code>numeric</code> and <code>character</code>.Entries of <code>NULL</code>, <code>NA</code>,
+<code>""</code> and <code>"NA"</code> will be ignored.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="funCode.html">funCode()</a></code> </p>
-          </td>
-          <td><p>Generate code for function call</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggDownload.html">ggDownload()</a></code> <code><a href="ggDownload.html">ggDownloadUI()</a></code> </p>
-          </td>
-          <td><p>Download a ggplot object as an image file.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="libData.html">libData()</a></code> <code><a href="libData.html">libDataUI()</a></code> </p>
-          </td>
-          <td><p>Read data from installed packages</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="readData.html">readData()</a></code> <code><a href="readData.html">readDataUI()</a></code> </p>
-          </td>
-          <td><p>Read data in different formats (xlsx, rds, csv, ...)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="renderCode.html">renderCode()</a></code> <code><a href="renderCode.html">codeOutput()</a></code> </p>
-          </td>
-          <td><p>Render code with syntax highlighting</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="variableView.html">variableView()</a></code> <code><a href="variableView.html">variableViewUI()</a></code> </p>
-          </td>
-          <td><p>SPSS like variable view</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <p>A character vector of length one</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>args</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='st'>"dt"</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='st'>"u"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"kja"</span>, <span class='st'>"jsak"</span>, <span class='st'>"saj"</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>u</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>funCode</span>(<span class='st'>"myFunction"</span>, <span class='no'>args</span>)</div><div class='output co'>#&gt; [1] "myFunction(dat='dt', m='u', xlab=c('kja','jsak','saj'), z=1, r=TRUE)"</div></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 

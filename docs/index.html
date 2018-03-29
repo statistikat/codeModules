@@ -67,16 +67,16 @@
 <p>This R package consists of several <a href="https://shiny.rstudio.com/articles/modules.html">shiny modules</a> that return R code in the form of <code>reactive</code> characters. All those modules represent common operations regarding</p>
 <ul>
 <li>Import of data (<code>read.csv</code>, <code>read.xlsx</code>, <code>data()</code>, …)</li>
-<li><del>Manipulation of data (either with <code>dplyr</code> or <code>data.table</code>)</del></li>
-<li><del>export of data (<code>write.csv</code>, <code>read.xlsx</code>, …)</del></li>
+<li>Manipulation of data (rename columns, change column classes, filtering)</li>
+<li><del>export of data (<code>write.csv</code>, <code>write.xlsx</code>, …)</del></li>
 </ul>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Always save the output from <code>callModule</code> into a variable when working with modules from this package. The modules can then be parsed as R code using <code>eval(parse(text = code()))</code>.</p>
+<p>Always save the output from <code>callModule</code> into a variable when working with modules from this package. The outputs can then be parsed as R code using <code>eval(parse(text = code()))</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## context: server.R
-code &lt;-<span class="st"> </span><span class="kw">callModule</span>(libData, <span class="dt">assignTo =</span> <span class="st">"dt"</span>)
+code &lt;-<span class="st"> </span><span class="kw">callModule</span>(libData, <span class="dt">id =</span> <span class="st">"some_id"</span>, <span class="dt">assignTo =</span> <span class="st">"dt"</span>)
 output<span class="op">$</span>table &lt;-<span class="st"> </span><span class="kw">renderTable</span>({
   <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> <span class="kw">code</span>()))
   <span class="kw">return</span>(dt)
@@ -91,6 +91,8 @@ output<span class="op">$</span>table &lt;-<span class="st"> </span><span class="
 </li>
 <li>
 <strong>readData</strong>: read data from a file using <code>read.csv</code>, <code>read.xlsx</code> or others depending on the fileextension.</li>
+<li>
+<strong>variableView</strong> Rename columns, filter data and change column types. The ui is oriented on the “variable view” in SPSS</li>
 </ul>
 </div>
 </div>

@@ -103,14 +103,26 @@ to give info about the datasets.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>input, output, session</th>
+      <td><p>Standard module parameters.</p></td>
+    </tr>
+    <tr>
       <th>assignTo</th>
-      <td><p>A character vector of length one. The symbol to assign the data to in the code</p></td>
+      <td><p>A character vector of length one. The symbol to assign the data to in the code.</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>The module identifier.</p></td>
+    </tr>
+    <tr>
+      <th>selected</th>
+      <td><p>The R package initially selected in the GUI.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A reactive string representing the import of the dataset. for example</p><pre>
+    <p>A reactive string representing the import of the dataset. for example.</p><pre>
 "data('Arthritis', package = 'vcd')\ndt &lt;- Arthritis"
 </pre>
 
@@ -121,12 +133,12 @@ to give info about the datasets.</p>
 <span class='fu'>shinyApp</span>(
   <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'>fluidPage</span>(
     <span class='fu'>libDataUI</span>(<span class='st'>"import"</span>),
-    <span class='fu'>verbatimTextOutput</span>(<span class='st'>"code"</span>),
+    <span class='fu'><a href='renderCode.html'>codeOutput</a></span>(<span class='st'>"code"</span>),
     <span class='fu'>dataTableOutput</span>(<span class='st'>"table"</span>)
   ),
   <span class='kw'>server</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>){
     <span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>(<span class='no'>libData</span>, <span class='st'>"import"</span>)
-    <span class='no'>output</span>$<span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'>renderText</span>(<span class='fu'>code</span>())
+    <span class='no'>output</span>$<span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='renderCode.html'>renderCode</a></span>(<span class='fu'>code</span>())
     <span class='no'>output</span>$<span class='no'>table</span> <span class='kw'>&lt;-</span> <span class='fu'>renderDataTable</span>({
       <span class='fu'>eval</span>(<span class='fu'>parse</span>(<span class='kw'>text</span> <span class='kw'>=</span> <span class='fu'>code</span>()))
       <span class='no'>dt</span>

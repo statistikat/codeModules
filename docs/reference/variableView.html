@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read data in different formats (xlsx, rds, csv, ...) — readData • codeModules</title>
+<title>SPSS like variable view — variableView • codeModules</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,10 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Read data in different formats (xlsx, rds, csv, ...) — readData" />
+<meta property="og:title" content="SPSS like variable view — variableView" />
 
-<meta property="og:description" content="Shiny module for reading data into R. currently, the formats .csv, .sav, .xlsx, .rds
-and .Rdata are supported. the following formats will be mapped .txt -&gt; .csv, .xls -&gt; .xlsx." />
+<meta property="og:description" content="This module gives a way to recode dataframes by changing column names and column classes. Also,
+datasets can be filtered based on UI inputs." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -86,19 +86,18 @@ and .Rdata are supported. the following formats will be mapped .txt -&gt; .csv, 
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read data in different formats (xlsx, rds, csv, ...)</h1>
+    <h1>SPSS like variable view</h1>
     
     </div>
 
     
-    <p>Shiny module for reading data into R. currently, the formats <code>.csv</code>, <code>.sav</code>, <code>.xlsx</code>, <code>.rds</code>
-and <code>.Rdata</code> are supported. the following formats will be mapped <code>.txt -&gt; .csv</code>, <code>.xls -&gt; .xlsx</code>.</p>
+    <p>This module gives a way to recode dataframes by changing column names and column classes. Also,
+datasets can be filtered based on UI inputs.</p>
     
 
-    <pre class="usage"><span class='fu'>readData</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>path</span>, <span class='kw'>callback</span> <span class='kw'>=</span> <span class='kw'>function</span>() { },
-  <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>variableView</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>dataset</span>, <span class='kw'>dataName</span> <span class='kw'>=</span> <span class='st'>"dat"</span>)
 
-<span class='fu'>readDataUI</span>(<span class='no'>id</span>)</pre>
+<span class='fu'>variableViewUI</span>(<span class='no'>id</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -108,43 +107,48 @@ and <code>.Rdata</code> are supported. the following formats will be mapped <cod
       <td><p>Standard module parameters.</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>A reactive value representing the path of the file to be read.</p></td>
+      <th>dataset</th>
+      <td><p>A <code>reactive</code> table (for example a <code>data.frame</code>)</p></td>
     </tr>
     <tr>
-      <th>callback</th>
-      <td><p>A function that will be called in case of unsupported formats. Should have no arguments.</p></td>
-    </tr>
-    <tr>
-      <th>symbol</th>
-      <td><p>Optional: A symbol to use in the import code in place of the path. This is useful if the
-path has previously been saved as a variable.</p></td>
+      <th>dataName</th>
+      <td><p>A <code>character</code> of length one giving the name of the dataset.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>The module identifier.</p></td>
+      <td><p>The id of the module.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A reactive string representing the code to read the dataset.</p>
+    <p>A reactive string representing the code to transform the dataset.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='no'>DT</span>)
+<span class='fu'>data</span>(<span class='st'>"tips"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"reshape2"</span>)
+<span class='co'>## no proper handling for integers yet</span>
 <span class='fu'>shinyApp</span>(
   <span class='fu'>fluidPage</span>(
-    <span class='fu'>textInput</span>(<span class='st'>"path"</span>, <span class='st'>"choose a path"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"mtcars.csv"</span>),
-    <span class='fu'>readDataUI</span>(<span class='st'>"readDataId"</span>),
-    <span class='fu'><a href='renderCode.html'>codeOutput</a></span>(<span class='st'>"code"</span>)
+    <span class='fu'>selectInput</span>(<span class='st'>"dataset"</span>, <span class='st'>"choose dataset"</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mtcars"</span>, <span class='st'>"tips"</span>)),
+    <span class='fu'>column</span>(<span class='fl'>6</span>, <span class='fu'>variableViewUI</span>(<span class='st'>"vv"</span>)),
+    <span class='fu'>column</span>(<span class='fl'>6</span>, <span class='fu'><a href='renderCode.html'>codeOutput</a></span>(<span class='st'>"code"</span>), <span class='fu'><a href='http://www.rdocumentation.org/packages/DT/topics/dataTableOutput'>DTOutput</a></span>(<span class='st'>"filtered"</span>))
   ),
   <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>){
-    <span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>(<span class='no'>readData</span>, <span class='st'>"readDataId"</span>, <span class='fu'>reactive</span>(<span class='no'>input</span>$<span class='no'>path</span>))
-    <span class='no'>output</span>$<span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='renderCode.html'>renderCode</a></span>({<span class='fu'>code</span>()})
-  }
-)
+    <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>reactive</span>({<span class='fu'>get</span>(<span class='no'>input</span>$<span class='no'>dataset</span>)})
 
+    <span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>(<span class='no'>variableView</span>, <span class='st'>"vv"</span>, <span class='no'>dataset</span>)
+    <span class='no'>output</span>$<span class='no'>code</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='renderCode.html'>renderCode</a></span>({ <span class='fu'>code</span>() })
+    <span class='no'>output</span>$<span class='no'>filtered</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DT/topics/dataTableOutput'>renderDT</a></span>({
+      <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>isolate</span>(<span class='fu'>dataset</span>())
+      <span class='fu'>eval</span>(<span class='fu'>parse</span>(<span class='kw'>text</span> <span class='kw'>=</span> <span class='fu'>code</span>()))
+      <span class='no'>dat</span>
+   })
+  },
+  <span class='kw'>options</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>launch.browser</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
