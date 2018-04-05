@@ -1,7 +1,7 @@
 ##' Download a ggplot object as an image file.
 ##'
 ##' Create a ui that contains controls for the height and width of the plot as well as a
-##' `downloadButton`.
+##' `downloadButton`. The module uses [ggsave] to convert the plot into an image file.
 ##'
 ##' @param input,output,session Standard module parameters
 ##' @param plotObj A reactive `ggplot` object
@@ -29,6 +29,7 @@
 ##' )
 ##' }
 ##' @importFrom grDevices dev.off
+##' @importFrom ggplot2 ggsave
 ##' @export
 ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
   code_save <- reactiveValues()
@@ -39,14 +40,11 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
     },
     content = function(file) {
       code_save$code <- paste0(
-        funCode(input$format, list(file = paste0("grafik.", input$format), width= input$width, height = input$height)), "\n",
-        plotObjName, "\ndev.off()\n"
+        funCode("ggsave", list(filename = paste0("grafik.", input$format), width= input$width, height = input$height)), "\n"
       )
 
-      deviceFun <- get(input$format)
-      deviceFun(file = file, width = input$width, height = input$height)
-      print(plotObj())
-      dev.off()
+      ggsave(filename = file, plot = plotObj(), width = input$width, height = input$height,
+             device = input$format, dpi = input$dpi)
     }
   )
 
@@ -65,11 +63,14 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
 ggDownloadUI <- function(id, buttonText = "Download image file"){
   ns <- NS(id)
   tagList(
-    div(align = "center", selectInput(ns("format"), "Format", c("png", "jpeg", "bmp", "tiff"))),
-    div(align = "center", sliderInput(ns("width"), label = strong("width"), min = 200, max = 2000,
-                                           value = 600, step = 10, width = "90%", post = " Pixel")),
-    div(align = "center", sliderInput(ns("height"), label = strong("height"), min = 200, max = 2000,
-                                           value = 400, step = 10, width = "90%", post = " Pixel")),
+    div(align = "center", selectInput(ns("format"), "Format", c("png", "pdf", "jpeg", "bmp", "svg", "eps",
+                                                                "ps", "tex"))),
+    div(align = "center", sliderInput(ns("width"), label = strong("width"), min = 1, max = 30,
+                                           value = 10, step = .1, width = "90%", post = " in")),
+    div(align = "center", sliderInput(ns("height"), label = strong("height"), min = 1, max = 30,
+                                           value = 8, step = .1, width = "90%", post = " in")),
+    div(align = "center", sliderInput(ns("dpi"), label = strong("resolution"), min = 10, max = 2000,
+                                      value = 300, step = 10, width = "90%", post = " dpi")),
     div(align = "center", downloadButton(ns("download"), strong(buttonText), class = "btn-primary"))
   )
 }
