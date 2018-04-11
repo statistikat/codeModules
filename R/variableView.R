@@ -66,7 +66,8 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
         class,
         factor = c("factor", "character"),
         numeric = c("numeric", "factor", "character"),
-        character = c("factor", "character")
+        character = c("factor", "character"),
+        class
       )
       as.character(FUN(ns(paste0(id, i)), label = NULL, selected = class, choices = choices, ...))
     }))
