@@ -7,7 +7,7 @@
 \usage{
 libData(input, output, session, assignTo = "dt", ignoreStyleSheet = TRUE)
 
-libDataUI(id, selected = "graphSTAT")
+libDataUI(id, selected = "datasets")
 }
 \arguments{
 \item{input, output, session}{Standard module parameters.}

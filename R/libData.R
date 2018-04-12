@@ -96,7 +96,7 @@ libData <- function(input, output, session, assignTo = "dt", ignoreStyleSheet = 
 #' @param selected The R package initially selected in the GUI.
 #' @param id The module identifier.
 #' @export
-libDataUI <- function(id, selected = "graphSTAT"){
+libDataUI <- function(id, selected = "datasets"){
   ns <- NS(id)
   tagList(
     selectizeInput(ns("Package"), "Choose a library", unique(datasets$Package),
