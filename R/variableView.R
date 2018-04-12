@@ -90,7 +90,7 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
               value = c(mins, maxs)))
           },
           factor = {
-            checkboxGroupInput(ns(paste0(id, i)), label = NULL, choices = unique(ds[[i]]),
+            checkboxGroupInput(ns(paste0(id, i)), label = NULL, choices = sort(unique(ds[[i]])),
                                inline = TRUE, selected = unique(ds[[i]]))
           },
           p("no contols available for this class")
