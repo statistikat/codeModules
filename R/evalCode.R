@@ -32,8 +32,10 @@ evalCode <- function(code, env = parent.frame()){
   tryCatch(
     eval(parse(text = code), envir = env),
     error = function(e){
+      if(is.null(getDefaultReactiveDomain()))
+        return(e)
       showModal(modalDialog(
-        title = p("Error while executing code", code(arg)),
+        title = p("Error while executing code", shiny::code(arg)),
         "Call:",
         renderCode(code),
         "Message:",

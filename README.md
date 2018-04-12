@@ -13,13 +13,13 @@ This R package consists of several [shiny modules](https://shiny.rstudio.com/art
 Usage
 -----
 
-Always save the output from `callModule` into a variable when working with modules from this package. The outputs can then be parsed as R code using `eval(parse(text = code()))`.
+Always save the output from `callModule` into a variable when working with modules from this package. The outputs can then be parsed as R code using `eval(parse(text = code()))` or `evalCode`.
 
 ``` r
 ## context: server.R
 code <- callModule(libData, id = "some_id", assignTo = "dt")
 output$table <- renderTable({
-  eval(parse(text = code()))
+  evalCode(code())
   return(dt)
 })
 ```
@@ -32,3 +32,9 @@ Implemented Modules
 -   **variableView** Rename columns, filter data and change column types. The ui is oriented on the "variable view" in SPSS
 -   **ggDownload** Download ggplot with custom height, width and filetype (`png`, `jpeg`, ...)
 -   **downloadTable** Download tables (usually `data.frames`) as `csv`, `xlsx`, `rds`.
+
+Other functions
+---------------
+
+-   **renderCode/codeOutput** Show code with syntax highlighting in the UI.
+-   **evalCode** Warapper for `eval(parse(text = .))` with error pupups.
