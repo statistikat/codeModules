@@ -3,6 +3,7 @@
 export(codeOutput)
 export(downloadTable)
 export(downloadTableUI)
+export(evalCode)
 export(funCode)
 export(ggDownload)
 export(ggDownloadUI)
