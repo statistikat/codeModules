@@ -9,6 +9,7 @@
 #'
 #' @return A reactive string representing the code to transform the dataset.
 #' @importFrom htmlwidgets JS
+#' @importFrom shinyWidgets pickerInput
 #'
 #' @export
 #'
@@ -90,8 +91,9 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
               value = c(mins, maxs)))
           },
           factor = {
-            checkboxGroupInput(ns(paste0(id, i)), label = NULL, choices = sort(unique(ds[[i]])),
-                               inline = TRUE, selected = unique(ds[[i]]))
+            pickerInput(ns(paste0(id, i)), label = NULL, choices = as.character(sort(unique(ds[[i]]))),
+                        selected = unique(ds[[i]]), multiple = TRUE,
+                        options = list(`selected-text-format` = "count > 3"))
           },
           p("no contols available for this class")
         )
