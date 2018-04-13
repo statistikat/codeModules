@@ -156,8 +156,11 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
       ))
   }, server = FALSE)
 
+  last_row_selected <- reactiveVal()
+  observeEvent(input$table_rows_selected, last_row_selected(input$table_rows_selected))
+
   output$selected_var <- renderPlot({
-    selected_var <- req(input$table_rows_selected)
+    selected_var <- req(last_row_selected())
     ds <- dataset()
     vec <- ds[[selected_var]]
     filter <- input[[paste0("filter", selected_var)]]
