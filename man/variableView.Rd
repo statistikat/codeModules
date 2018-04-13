@@ -3,11 +3,14 @@
 \name{variableView}
 \alias{variableView}
 \alias{variableViewUI}
+\alias{selectedVar}
 \title{SPSS like variable view}
 \usage{
 variableView(input, output, session, dataset, dataName = "dat")
 
 variableViewUI(id)
+
+selectedVar(id)
 }
 \arguments{
 \item{input, output, session}{Standard module parameters.}
@@ -25,6 +28,10 @@ A reactive string representing the code to transform the dataset.
 This module gives a way to recode dataframes by changing column names and column classes. Also,
 datasets can be filtered based on UI inputs.
 }
+\details{
+\code{selectedVar} is an optional ui element which will show a summary of the variable selected in
+\code{variableViewUI}.
+}
 \examples{
 \dontrun{
 library(DT)
@@ -32,9 +39,9 @@ data("tips", package = "reshape2")
 ## no proper handling for integers yet
 shinyApp(
   fluidPage(
-    selectInput("dataset", "choose dataset", choices = c("mtcars", "tips")),
-    column(6, variableViewUI("vv")),
-    column(6, codeOutput("code"), DTOutput("filtered"))
+    column(6, selectInput("dataset", "choose dataset", choices = c("mtcars", "tips")),
+              variableViewUI("vv")),
+    column(6, codeOutput("code"), selectedVar("vv"), DTOutput("filtered"))
   ),
   function(input, output, session){
     dataset <- reactive({get(input$dataset)})

@@ -1,7 +1,28 @@
+plot_vec_numeric <- function(vec, limits) {
+  x <- NULL
+  ggplot2::ggplot(data.frame(x = vec), ggplot2::aes(x)) +
+    ggplot2::geom_histogram(
+      breaks = hist(vec)$breaks,
+      col = "red",
+      fill = "green",
+      alpha = .2
+    ) +
+    ggplot2::geom_vline(xintercept = limits[1]) +
+    ggplot2::geom_vline(xintercept = limits[2])
+}
+
+plot_vec_factor <- function(vec, kept_levels) {
+  cols <- c("#ED0959", "#3AD142")[1 + levels(vec) %in% kept_levels]
+  plot(vec, col = cols)
+}
+
 #' SPSS like variable view
 #'
 #' This module gives a way to recode dataframes by changing column names and column classes. Also,
 #' datasets can be filtered based on UI inputs.
+#'
+#' `selectedVar` is an optional ui element which will show a summary of the variable selected in
+#' `variableViewUI`.
 #'
 #' @param input,output,session Standard module parameters.
 #' @param dataset A `reactive` table (for example a `data.frame`)
@@ -10,6 +31,7 @@
 #' @return A reactive string representing the code to transform the dataset.
 #' @importFrom htmlwidgets JS
 #' @importFrom shinyWidgets pickerInput
+#' @importFrom graphics hist plot
 #'
 #' @export
 #'
@@ -20,9 +42,9 @@
 #' ## no proper handling for integers yet
 #' shinyApp(
 #'   fluidPage(
-#'     selectInput("dataset", "choose dataset", choices = c("mtcars", "tips")),
-#'     column(6, variableViewUI("vv")),
-#'     column(6, codeOutput("code"), DTOutput("filtered"))
+#'     column(6, selectInput("dataset", "choose dataset", choices = c("mtcars", "tips")),
+#'               variableViewUI("vv")),
+#'     column(6, codeOutput("code"), selectedVar("vv"), DTOutput("filtered"))
 #'   ),
 #'   function(input, output, session){
 #'     dataset <- reactive({get(input$dataset)})
@@ -134,6 +156,20 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
       ))
   }, server = FALSE)
 
+  output$selected_var <- renderPlot({
+    selected_var <- req(input$table_rows_selected)
+    ds <- dataset()
+    vec <- ds[[selected_var]]
+    filter <- input[[paste0("filter", selected_var)]]
+    switch(
+      shinyValue("class", selected_var)[selected_var],
+      numeric = plot_vec_numeric(as.numeric(as.character(vec)), filter),
+      factor = plot_vec_factor(as.factor(vec), filter),
+      character = plot(as.factor(vec)),
+      NULL
+    )
+  })
+
   code <- eventReactive(input$button, {
     ds <- dataset()
     classes <- shinyValue("class", ncol(ds))
@@ -199,5 +235,11 @@ variableViewUI <- function(id){
         })"))),
     actionButton(ns("button"), "apply changes")
   )
+}
+
+#' @rdname variableView
+#' @export
+selectedVar <- function(id){
+  plotOutput(NS(id, "selected_var"))
 }
 
