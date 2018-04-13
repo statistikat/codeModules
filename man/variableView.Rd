@@ -34,12 +34,14 @@ datasets can be filtered based on UI inputs.
 }
 \examples{
 \dontrun{
+
 library(DT)
 data("tips", package = "reshape2")
-## no proper handling for integers yet
+data("diamonds", package = "ggplot2")
+
 shinyApp(
   fluidPage(
-    column(6, selectInput("dataset", "choose dataset", choices = c("mtcars", "tips")),
+    column(6, selectInput("dataset", "choose dataset", choices = c("mtcars", "tips", "diamonds")),
               variableViewUI("vv")),
     column(6, codeOutput("code"), selectedVar("vv"), DTOutput("filtered"))
   ),
