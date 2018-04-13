@@ -86,7 +86,8 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
   selectInputVec <- function(FUN, len, id, selecteds, ...){
     ## FUN: `radioButtons` or `selectInput(..., multiple = TRUE)`
     unlist(lapply(seq_len(len), function(i){
-      class <- switch(selecteds[i], integer = "numeric", labelled = "factor", selecteds[i])
+      classes <- selecteds[[i]]
+      class <- switch(classes[1], integer = "numeric", labelled = "factor", ordered = "factor", classes[1])
       choices <- switch(
         class,
         factor = c("factor", "character"),
@@ -142,7 +143,7 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
     df <- data.frame(
       name = shinyInput(textInput, ncol(ds), "name", names(ds)),
       class = selectInputVec(
-        radioButtons, ncol(ds), "class", selecteds = as.character(vapply(ds, class, "")),
+        radioButtons, ncol(ds), "class", selecteds = lapply(ds, class),
         inline = TRUE
       ),
       filter = filterInputs(ncol(ds), id = "filter"),
@@ -179,7 +180,7 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
     ds <- dataset()
     classes <- shinyValue("class", ncol(ds))
     names_mod <- shinyValue("name", ncol(ds))
-    classes_orig <- as.character(vapply(ds, class, ""))
+    classes_orig <- as.character(vapply(ds, function(x){class(x)[1]}, ""))
     names_orig <- names(ds)
 
     modify_names <- paste(unlist(lapply(seq_len(ncol(ds)), function(i){
