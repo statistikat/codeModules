@@ -1,5 +1,6 @@
 plot_vec_numeric <- function(vec, limits) {
   x <- NULL
+  req(is.numeric(limits))
   ggplot2::ggplot(data.frame(x = vec), ggplot2::aes(x)) +
     ggplot2::geom_histogram(
       breaks = hist(vec)$breaks,
@@ -12,6 +13,7 @@ plot_vec_numeric <- function(vec, limits) {
 }
 
 plot_vec_factor <- function(vec, kept_levels) {
+  req(is.character(kept_levels))
   cols <- c("#ED0959", "#3AD142")[1 + levels(vec) %in% kept_levels]
   plot(vec, col = cols)
 }
