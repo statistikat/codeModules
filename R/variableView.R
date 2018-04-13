@@ -3,7 +3,7 @@ plot_vec_numeric <- function(vec, limits) {
   req(is.numeric(limits))
   ggplot2::ggplot(data.frame(x = vec), ggplot2::aes(x)) +
     ggplot2::geom_histogram(
-      breaks = hist(vec)$breaks,
+      breaks = hist(vec, breaks = "scott")$breaks,
       col = "red",
       fill = "green",
       alpha = .2
