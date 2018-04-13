@@ -1,3 +1,4 @@
+#' @importFrom utils write.table
 dtCsv <- function(input, output, session, rTable, fileName = "tableFile"){
   output$download <- downloadHandler(
     filename = function() {
