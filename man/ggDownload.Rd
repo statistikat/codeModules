@@ -7,7 +7,8 @@
 \usage{
 ggDownload(input, output, session, plotObj, plotObjName = "ggObj")
 
-ggDownloadUI(id, buttonText = "Download image file")
+ggDownloadUI(id, downloadText = "Download image file",
+  previewText = "Open in new tab")
 }
 \arguments{
 \item{input, output, session}{Standard module parameters}
@@ -18,7 +19,9 @@ ggDownloadUI(id, buttonText = "Download image file")
 
 \item{id}{The module identifier.}
 
-\item{buttonText}{Text do display on the \code{downloadButton}.}
+\item{downloadText}{Text do display on the \code{downloadButton}.}
+
+\item{previewText}{Text to display in the preview button.}
 }
 \value{
 A reactive string that represents the code for downloading the plot.

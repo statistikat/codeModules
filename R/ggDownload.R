@@ -30,9 +30,19 @@
 ##' }
 ##' @importFrom grDevices dev.off
 ##' @importFrom ggplot2 ggsave
+##' @importFrom shinyjs useShinyjs runjs
 ##' @export
 ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
   code_save <- reactiveValues()
+
+  plotDir <- file.path(tempdir(), "codeModules", "plots")
+  if(!dir.exists(plotDir))
+    dir.create(plotDir, recursive = TRUE)
+
+  savePlot <- function(file){
+    ggsave(filename = file, plot = plotObj(), width = input$width, height = input$height,
+           device = input$format, dpi = input$dpi)
+  }
 
   output$download <- downloadHandler(
     filename = function() {
@@ -43,10 +53,19 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
         funCode("ggsave", list(filename = paste0("grafik.", input$format), width= input$width, height = input$height)), "\n"
       )
 
-      ggsave(filename = file, plot = plotObj(), width = input$width, height = input$height,
-             device = input$format, dpi = input$dpi)
+      savePlot(file)
     }
   )
+
+  observeEvent(input$preview, {
+    tf <- tempfile(fileext = paste0(".", input$format), tmpdir = plotDir)
+    bf <- basename(tf)
+    addResourcePath("plot", plotDir)
+    savePlot(tf)
+    jsstr <- paste0("window.open('plot/", bf, "', '_blank');")
+    shinyjs::runjs(jsstr)
+    shinyjs::delay(1000, file.remove(tf))
+  })
 
   ## For some reason, the observer pattern of shiny fails if reactives are set inside a downloadHandler
   ## Therefore, enforce evaluation of the code output periodically to update all references.
@@ -58,11 +77,13 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
 
 #' @rdname ggDownload
 #' @param id The module identifier.
-#' @param buttonText Text do display on the `downloadButton`.
+#' @param downloadText Text do display on the `downloadButton`.
+#' @param previewText Text to display in the preview button.
 #' @export
-ggDownloadUI <- function(id, buttonText = "Download image file"){
+ggDownloadUI <- function(id, downloadText = "Download image file", previewText = "Open in new tab"){
   ns <- NS(id)
   tagList(
+    shinyjs::useShinyjs(),
     div(align = "center", selectInput(ns("format"), "Format", c("png", "pdf", "jpeg", "bmp", "svg", "eps",
                                                                 "ps", "tex"))),
     div(align = "center", sliderInput(ns("width"), label = strong("width"), min = 1, max = 30,
@@ -71,6 +92,9 @@ ggDownloadUI <- function(id, buttonText = "Download image file"){
                                            value = 8, step = .1, width = "90%", post = " in")),
     div(align = "center", sliderInput(ns("dpi"), label = strong("resolution"), min = 10, max = 2000,
                                       value = 300, step = 10, width = "90%", post = " dpi")),
-    div(align = "center", downloadButton(ns("download"), strong(buttonText), class = "btn-primary"))
+    div(align = "center", span(
+      downloadButton(ns("download"), strong(downloadText), class = "btn-primary"),
+      actionButton(ns("preview"), strong(previewText), class = "btn-info", icon = icon("eye"))
+    ))
   )
 }
