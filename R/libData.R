@@ -1,15 +1,18 @@
-datasets <- as.data.table(suppressWarnings(data(package = .packages(all.available = TRUE))$results))
-# do some string splitting to convert for exmple "fdeaths (UKLungDeaths)" into two columns
-ObjName <- Package <- NULL
-datasets[, ObjName := Item]
-datasets[, SourceName := Item]
-spl <- strsplit(datasets$Item, ' (', fixed = TRUE)
-for(i in 1:nrow(datasets)){
-  splc <- spl[[i]]
-  if(length(splc) == 2){
-    datasets[i, ObjName := splc[1]]
-    datasets[i, SourceName := sub(")", "", splc[2], fixed = TRUE) ]
+get_datasets <- function() {
+  datasets <- as.data.table(suppressWarnings(data(package = .packages(all.available = TRUE))$results))
+  # do some string splitting to convert for exmple "fdeaths (UKLungDeaths)" into two columns
+  ObjName <- Package <- NULL
+  datasets[, ObjName := Item]
+  datasets[, SourceName := Item]
+  spl <- strsplit(datasets$Item, ' (', fixed = TRUE)
+  for(i in 1:nrow(datasets)){
+    splc <- spl[[i]]
+    if(length(splc) == 2){
+      datasets[i, ObjName := splc[1]]
+      datasets[i, SourceName := sub(")", "", splc[2], fixed = TRUE) ]
+    }
   }
+  datasets %>% dplyr::select(Package, ObjName, Title)
 }
 
 #' Read data from installed packages
@@ -49,6 +52,8 @@ for(i in 1:nrow(datasets)){
 #' }
 #' @export
 libData <- function(input, output, session, assignTo = "dt", ignoreStyleSheet = TRUE){
+  datasets <- get_datasets()
+
   shiny::addResourcePath("rcss", system.file("html", package = "codeModules"))
 
   observeEvent(
@@ -98,6 +103,9 @@ libData <- function(input, output, session, assignTo = "dt", ignoreStyleSheet = 
 #' @export
 libDataUI <- function(id, selected = "datasets"){
   ns <- NS(id)
+
+  datasets <- get_datasets()
+
   tagList(
     selectizeInput(ns("Package"), "Choose a library", unique(datasets$Package),
                    selected = selected),
