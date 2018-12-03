@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download tables in different formats — downloadTable • codeModules</title>
+<title>Download widgets as html — widgetDownload • codeModules</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
 
 
-<meta property="og:title" content="Download tables in different formats — downloadTable" />
+<meta property="og:title" content="Download widgets as html — widgetDownload" />
 
-<meta property="og:description" content="This module uses downloadHandler to allow downloads of tables in different formats (xlsx,
-rds, adn csv)." />
+<meta property="og:description" content="Shiny module to save shiny widgets as html files. Internally, the conversion is done with
+htmlwidgets::saveWidget." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -102,55 +102,54 @@ rds, adn csv)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Download tables in different formats</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/codeModules/blob/master/R/downloadTable.R'><code>R/downloadTable.R</code></a></small>
-    <div class="hidden name"><code>downloadTable.Rd</code></div>
+    <h1>Download widgets as html</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/codeModules/blob/master/R/downloadWidget.R'><code>R/downloadWidget.R</code></a></small>
+    <div class="hidden name"><code>widgetDownload.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This module uses <code>downloadHandler</code> to allow downloads of tables in different formats (xlsx,
-rds, adn csv).</p>
+    <p>Shiny module to save shiny widgets as <code>html</code> files. Internally, the conversion is done with
+<a href='https://www.rdocumentation.org/packages/htmlwidgets/topics/saveWidget'>htmlwidgets::saveWidget</a>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>downloadTable</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>rTable</span>, <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"tableFile"</span>)
+    <pre class="usage"><span class='fu'>widgetDownload</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>rWidget</span>, <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"widget.html"</span>)
 
-<span class='fu'>downloadTableUI</span>(<span class='no'>id</span>)</pre>
+<span class='fu'>widgetDownloadUI</span>(<span class='no'>id</span>, <span class='kw'>btnText</span> <span class='kw'>=</span> <span class='st'>"Download widget"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input, output, session</th>
-      <td><p>Standard module parameters</p></td>
+      <td><p>Standard shiny module parameters</p></td>
     </tr>
     <tr>
-      <th>rTable</th>
-      <td><p>A reactive table (for example a <code>data.frame</code>)</p></td>
+      <th>rWidget</th>
+      <td><p>A reactive returning a shiny widget</p></td>
     </tr>
     <tr>
-      <th>fileName</th>
-      <td><p>A prefix for the default name in the download handler.</p></td>
+      <th>filename</th>
+      <td><p>Argument to be passed to <a href='https://www.rdocumentation.org/packages/shiny/topics/downloadHandler'>shiny::downloadHandler</a></p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>The module identifier</p></td>
+      <td><p>The id of the module</p></td>
+    </tr>
+    <tr>
+      <th>btntext</th>
+      <td><p>The text appearing on the download button</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Currently, no reactive code is returned due to issues with <code>downloadTable</code>. See
-<a href='https://stackoverflow.com/questions/45458348/'>here</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='fu'>shinyApp</span>(
-  <span class='fu'>fluidPage</span>(<span class='fu'>downloadTableUI</span>(<span class='st'>"downloadTable"</span>)),
+  <span class='fu'>fluidPage</span>(<span class='fu'>widgetDownloadUI</span>(<span class='st'>"wd"</span>)),
   <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>) {
-    <span class='fu'>callModule</span>(<span class='no'>downloadTable</span>, <span class='st'>"downloadTable"</span>, <span class='fu'>reactive</span>({<span class='no'>mtcars</span>}), <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"mtcars"</span>)
+    <span class='fu'>callModule</span>(<span class='no'>widgetDownload</span>, <span class='st'>"wd"</span>, <span class='fu'>reactive</span>({ <span class='kw pkg'>DT</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DT/topics/datatable'>datatable</a></span>(<span class='no'>mtcars</span>) }))
   }
 )
 <span class='co'># }</span></pre>
@@ -159,9 +158,7 @@ rds, adn csv).</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
