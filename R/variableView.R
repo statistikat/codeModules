@@ -111,8 +111,8 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
           input[[paste0("class", i)]],
           numeric = {
             req(is.numeric(ds[[i]]))
-            mins <- min(ds[[i]])
-            maxs <- max(ds[[i]])
+            mins <- min(ds[[i]], na.rm = TRUE)
+            maxs <- max(ds[[i]], na.rm = TRUE)
             div(style = "height: 45px;", sliderInput(
               inputId = ns(paste0(id, i)), label = NULL, min = mins, max = maxs,
               value = c(mins, maxs)))
@@ -213,9 +213,9 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
           numeric = {
             filter_vals <- input[[paste0("filter", i)]]
             paste0(
-              if(filter_vals[2] != max(ds[[i]]))
+              if (!isTRUE(all.equal(filter_vals[2], max(ds[[i]], na.rm = TRUE))))
                 paste0(dataName, " <- subset(", dataName, ", ", names_mod[i], "<=", filter_vals[2], ")\n"),
-              if(filter_vals[1] != min(ds[[i]]))
+              if (!isTRUE(all.equal(filter_vals[1], min(ds[[i]], na.rm = TRUE))))
                 paste0(dataName, " <- subset(", dataName, ", ", names_mod[i], ">=", filter_vals[1], ")\n")
             )
           }
