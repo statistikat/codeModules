@@ -12,7 +12,7 @@ get_datasets <- function() {
       datasets[i, SourceName := sub(")", "", splc[2], fixed = TRUE) ]
     }
   }
-  datasets %>% dplyr::select(Package, ObjName, Title)
+  datasets %>% dplyr::select(Package, ObjName, Title, SourceName)
 }
 
 #' Read data from installed packages
