@@ -5,31 +5,35 @@
 \alias{libDataUI}
 \title{Read data from installed packages}
 \usage{
-libData(input, output, session, assignTo = "dt", ignoreStyleSheet = TRUE)
+libData(input, output, session, assignTo = "dt",
+  ignoreStyleSheet = TRUE)
 
 libDataUI(id, selected = "datasets")
 }
 \arguments{
 \item{input, output, session}{Standard module parameters.}
 
-\item{assignTo}{A character vector of length one. The symbol to assign the data to in the code.}
+\item{assignTo}{A character vector of length one. The symbol to assign the
+data to in the code.}
 
-\item{ignoreStyleSheet}{By default, the R documentation pages use a special \code{css} sheet for styling.
-Set this option to \code{FALSE} to load this stylesheet.}
+\item{ignoreStyleSheet}{By default, the R documentation pages use a special
+\code{css} sheet for styling. Set this option to \code{FALSE} to load this
+stylesheet.}
 
 \item{id}{The module identifier.}
 
 \item{selected}{The R package initially selected in the GUI.}
 }
 \value{
-A reactive string representing the import of the dataset. for example.
+A reactive string representing the import of the dataset. for
+example.
 \preformatted{
 "data('Arthritis', package = 'vcd')\ndt <- Arthritis"
 }
 }
 \description{
-Read data via \code{utils::data} and import it into R. The ui includes a "show documentation" button
-to give info about the datasets.
+Read data via \code{utils::data} and import it into R. The ui includes a "show
+documentation" button to give info about the datasets.
 }
 \examples{
 \dontrun{

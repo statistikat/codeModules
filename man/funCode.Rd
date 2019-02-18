@@ -9,9 +9,9 @@ funCode(funName, args)
 \arguments{
 \item{funName}{Name of the function to call in the string.}
 
-\item{args}{a named, partly named or unnamed list containing the parameters for the function.
-Supported types are \code{logical}, \code{numeric} and \code{character}.Entries of \code{NULL}, \code{NA},
-\code{""} and \code{"NA"} will be ignored.}
+\item{args}{a named, partly named or unnamed list containing the parameters
+for the function. Supported types are \code{logical}, \code{numeric} and \code{character}.
+Entries of \code{NULL}, \code{NA}, \code{""} and \code{"NA"} will be ignored.}
 }
 \value{
 A character vector of length one
@@ -20,6 +20,7 @@ A character vector of length one
 Creates a string that reptresents a function call based on an argument list.
 }
 \examples{
-args <- list(dat = "dt", m = "u", xlab = c("kja", "jsak", "saj"), z = 1, u = NULL, r = TRUE)
+args <- list(dat = "dt", m = "u", xlab = c("kja", "jsak", "saj"), z = 1,
+             u = NULL, r = TRUE)
 funCode("myFunction", args)
 }

@@ -21,8 +21,8 @@ widgetDownloadUI(id, btnText = "Download widget")
 \item{btnText}{The text appearing on the download button}
 }
 \description{
-Shiny module to save shiny widgets as \code{html} files. Internally, the conversion is done with
-\link[htmlwidgets:saveWidget]{htmlwidgets::saveWidget}.
+Shiny module to save shiny widgets as \code{html} files. Internally, the
+conversion is done with \link[htmlwidgets:saveWidget]{htmlwidgets::saveWidget}.
 }
 \examples{
 \dontrun{

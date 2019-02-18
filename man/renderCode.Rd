@@ -19,17 +19,19 @@ argument to \code{cat}.}
 \item{quoted}{Is \code{expr} a quoted expression (with \code{quote()})? This
 is useful if you want to save an expression in a variable.}
 
-\item{outputArgs}{A list of arguments to be passed through to the implicit call to \link{codeOutput}
-when \code{renderCode} is used in an interactive R Markdown document.}
+\item{outputArgs}{A list of arguments to be passed through to the implicit
+call to \link{codeOutput} when \code{renderCode} is used in an interactive R
+Markdown document.}
 
-\item{delay}{How much delay to use (in ms) between rendering and firing the syntax highlighting
-script. For \code{length(delay) > 1} the script will fire multiple times.}
+\item{delay}{How much delay to use (in ms) between rendering and firing the
+syntax highlighting script. For \code{length(delay) > 1} the script will fire
+multiple times.}
 
 \item{outputId}{output variable to read the code from.}
 }
 \description{
-These functions work similar to \code{renderText} and \code{verbatimTextOutput} but will include highlighting
-with \code{highlight.js} and \code{rstudio.css}.
+These functions work similar to \code{renderText} and \code{verbatimTextOutput} but
+will include highlighting with \code{highlight.js} and \code{rstudio.css}.
 }
 \examples{
 \dontrun{

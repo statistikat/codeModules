@@ -20,10 +20,11 @@ plot_vec_factor <- function(vec, kept_levels) {
 
 #' SPSS like variable view
 #'
-#' This module gives a way to recode dataframes by changing column names and column classes. Also,
-#' datasets can be filtered based on UI inputs.
+#' This module gives a way to recode dataframes by changing column names and
+#' column classes. Also, datasets can be filtered based on UI inputs.
 #'
-#' `selectedVar` is an optional ui element which will show a summary of the variable selected in
+#' `selectedVar` is an optional ui element which will show a summary of the
+#'   variable selected in
 #' `variableViewUI`.
 #'
 #' @param input,output,session Standard module parameters.
@@ -46,7 +47,8 @@ plot_vec_factor <- function(vec, kept_levels) {
 #'
 #' shinyApp(
 #'   fluidPage(
-#'     column(6, selectInput("dataset", "choose dataset", choices = c("mtcars", "tips", "diamonds")),
+#'     column(6, selectInput("dataset", "choose dataset",
+#'            choices = c("mtcars", "tips", "diamonds")),
 #'               variableViewUI("vv")),
 #'     column(6, codeOutput("code"), selectedVar("vv"), DTOutput("filtered"))
 #'   ),
@@ -69,16 +71,16 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
   initialized <- reactiveVal(FALSE)
 
   ds <- reactive({
-    if(isolate(initialized()))
-      session$sendCustomMessage('unbind-DT', 'table')
+    if (isolate(initialized()))
+      session$sendCustomMessage("unbind-DT", "table")
     initialized(TRUE)
     dataset()
   })
 
-  shinyInput = function(FUN, len, id, values, ...) {
-    inputs = character(len)
+  shinyInput <- function(FUN, len, id, values, ...) {
+    inputs <- character(len)
     for (i in seq_len(len)) {
-      inputs[i] = as.character(textInput(ns(
+      inputs[i] <- as.character(textInput(ns(
         paste0(id, i)), label = NULL,
         value = values[i]))
     }
@@ -89,7 +91,8 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
     ## FUN: `radioButtons` or `selectInput(..., multiple = TRUE)`
     unlist(lapply(seq_len(len), function(i){
       classes <- selecteds[[i]]
-      class <- switch(classes[1], integer = "numeric", labelled = "factor", ordered = "factor", classes[1])
+      class <- switch(classes[1], integer = "numeric", labelled = "factor",
+                      ordered = "factor", classes[1])
       choices <- switch(
         class,
         factor = c("factor", "character"),
@@ -97,14 +100,15 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
         character = c("factor", "character"),
         class
       )
-      as.character(FUN(ns(paste0(id, i)), label = NULL, selected = class, choices = choices, ...))
+      as.character(FUN(ns(paste0(id, i)), label = NULL, selected = class,
+                       choices = choices, ...))
     }))
   }
 
   filterInputs <- function(len, id){
     inputs <- character(len)
     inputs <- unlist(lapply(seq_len(len), function(i){
-      output[[paste0(id,"output", i)]] <- renderUI({
+      output[[paste0(id, "output", i)]] <- renderUI({
         ds <- dataset()
         req(ncol(ds) >= i)
         switch(
@@ -118,7 +122,8 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
               value = c(mins, maxs)))
           },
           factor = {
-            pickerInput(ns(paste0(id, i)), label = NULL, choices = as.character(sort(unique(ds[[i]]))),
+            pickerInput(ns(paste0(id, i)), label = NULL,
+                        choices = as.character(sort(unique(ds[[i]]))),
                         selected = unique(ds[[i]]), multiple = TRUE,
                         options = list(`selected-text-format` = "count > 3"))
           },
@@ -132,14 +137,14 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
   }
 
   # obtain the values of inputs
-  shinyValue = function(id, len) {
+  shinyValue <- function(id, len) {
     unlist(lapply(seq_len(len), function(i) {
-      value = input[[paste0(id, i)]]
+      value <- input[[paste0(id, i)]]
       if (is.null(value)) NA else value
     }))
   }
 
-  output$table <- renderDT({
+  output$table <- renderDT(server = FALSE, {
     ds <- ds()
 
     df <- data.frame(
@@ -155,14 +160,17 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
     datatable(
       df, rownames = FALSE, escape = FALSE, selection = "single",
       options = list(
-        preDrawCallback = JS('function() { Shiny.unbindAll(this.api().table().node()); }'),
-        drawCallback = JS('function() {  Shiny.bindAll(this.api().table().node()); } '),
+        preDrawCallback = JS("function() { Shiny.unbindAll(
+                             this.api().table().node()); }"),
+        drawCallback = JS("function() {  Shiny.bindAll(
+                          this.api().table().node()); } "),
         pageLength = -1, dom = "t"
       ))
-  }, server = FALSE)
+  })
 
   last_row_selected <- reactiveVal()
-  observeEvent(input$table_rows_selected, last_row_selected(input$table_rows_selected))
+  observeEvent(input$table_rows_selected,
+               last_row_selected(input$table_rows_selected))
 
   output$selected_var <- renderPlot({
     selected_var <- req(last_row_selected())
@@ -182,18 +190,24 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
     ds <- dataset()
     classes <- shinyValue("class", ncol(ds))
     names_mod <- shinyValue("name", ncol(ds))
-    classes_orig <- as.character(vapply(ds, function(x){class(x)[1]}, ""))
+    classes_orig <- as.character(vapply(
+      ds,
+      function(x){
+        class(x)[1]
+      },
+      ""))
     names_orig <- names(ds)
 
     modify_names <- paste(unlist(lapply(seq_len(ncol(ds)), function(i){
-     if(names_mod[i] != names_orig[i])
-       paste0("names(", dataName, ")[",i,"] <- ", shQuote(names_mod[i]))
+     if (names_mod[i] != names_orig[i])
+       paste0("names(", dataName, ")[", i, "] <- ", shQuote(names_mod[i]))
     })), collapse = "\n")
 
     modify_classes <- paste(unlist(
       lapply(seq_len(ncol(ds)), function(i){
-        if(classes[i] != classes_orig[i])
-          paste0(dataName, "$", names_mod[i], " <- ", "as.", classes[i], "(", dataName, "$", names_mod[i], ")")
+        if (classes[i] != classes_orig[i])
+          paste0(dataName, "$", names_mod[i], " <- ", "as.", classes[i], "(",
+                 dataName, "$", names_mod[i], ")")
       })
     ), collapse = "\n")
 
@@ -203,29 +217,35 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
           classes[i],
           factor = {
             filter_vals <- input[[paste0("filter", i)]]
-            if (length(setdiff(as.character(unique(ds[[i]])), filter_vals)) != 0){
+            if (length(setdiff(as.character(unique(ds[[i]])), filter_vals))
+                != 0) {
               paste0(
-                dataName, " <- subset(", dataName, ", ", names_mod[i], " %in% ", "c(",
-                paste(shQuote(filter_vals), collapse = ", "), "))\n"
+                dataName, " <- subset(", dataName, ", ", names_mod[i], " %in% ",
+                "c(", paste(shQuote(filter_vals), collapse = ", "), "))\n"
               )
             }
           },
           numeric = {
             filter_vals <- input[[paste0("filter", i)]]
             paste0(
-              if (!isTRUE(all.equal(filter_vals[2], max(ds[[i]], na.rm = TRUE))))
-                paste0(dataName, " <- subset(", dataName, ", ", names_mod[i], "<=", filter_vals[2], ")\n"),
-              if (!isTRUE(all.equal(filter_vals[1], min(ds[[i]], na.rm = TRUE))))
-                paste0(dataName, " <- subset(", dataName, ", ", names_mod[i], ">=", filter_vals[1], ")\n")
+              if (!isTRUE(all.equal(filter_vals[2],
+                                    max(ds[[i]], na.rm = TRUE))))
+                paste0(dataName, " <- subset(", dataName, ", ", names_mod[i],
+                       "<=", filter_vals[2], ")\n"),
+              if (!isTRUE(all.equal(filter_vals[1],
+                                    min(ds[[i]], na.rm = TRUE))))
+                paste0(dataName, " <- subset(", dataName, ", ", names_mod[i],
+                       ">=", filter_vals[1], ")\n")
             )
           }
         )
       })
     ), collapse = "")
 
-    if(modify_names == "") modify_names <- NULL
-    if(modify_classes == "") modify_classes <- NULL
-    paste0(unlist(list(modify_names, modify_classes, filter_values)), collapse = "\n")
+    if (modify_names == "") modify_names <- NULL
+    if (modify_classes == "") modify_classes <- NULL
+    paste0(unlist(list(modify_names, modify_classes, filter_values)),
+           collapse = "\n")
   })
 
   return(code)
@@ -238,9 +258,11 @@ variableViewUI <- function(id){
   ns <- NS(id)
   tagList(
     DTOutput(ns("table")),
-    tags$script(HTML(paste0("Shiny.addCustomMessageHandler('unbind-DT', function(id) {
-          Shiny.unbindAll($('#", id,"-'+id).find('table').DataTable().table().node());
-        })"))),
+    tags$script(HTML(paste0("Shiny.addCustomMessageHandler('unbind-DT',
+      function(id) {
+        Shiny.unbindAll(
+          $('#", id, "-'+id).find('table').DataTable().table().node());
+      })"))),
     actionButton(ns("button"), "apply changes")
   )
 }
@@ -250,4 +272,3 @@ variableViewUI <- function(id){
 selectedVar <- function(id){
   plotOutput(NS(id, "selected_var"))
 }
-

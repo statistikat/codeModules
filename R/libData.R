@@ -2,16 +2,17 @@ get_datasets <- function() {
   Item <- Package <- ObjName <- Title <- SourceName <- NULL
   datasets <- as.data.table(suppressWarnings(utils::data(
     package = .packages(all.available = TRUE))$results))
-  # do some string splitting to convert for exmple "fdeaths (UKLungDeaths)" into two columns
+  # do some string splitting to convert for exmple "fdeaths (UKLungDeaths)"
+  # into two columns
   ObjName <- Package <- NULL
   datasets[, ObjName := Item]
   datasets[, SourceName := Item]
-  spl <- strsplit(datasets$Item, ' (', fixed = TRUE)
-  for(i in 1:nrow(datasets)){
+  spl <- strsplit(datasets$Item, " (", fixed = TRUE)
+  for (i in 1:nrow(datasets)){
     splc <- spl[[i]]
-    if(length(splc) == 2){
+    if (length(splc) == 2){
       datasets[i, ObjName := splc[1]]
-      datasets[i, SourceName := sub(")", "", splc[2], fixed = TRUE) ]
+      datasets[i, SourceName := sub(")", "", splc[2], fixed = TRUE)]
     }
   }
   datasets %>% dplyr::select(Package, ObjName, Title, SourceName)
@@ -19,15 +20,18 @@ get_datasets <- function() {
 
 #' Read data from installed packages
 #'
-#' Read data via `utils::data` and import it into R. The ui includes a "show documentation" button
-#' to give info about the datasets.
+#' Read data via `utils::data` and import it into R. The ui includes a "show
+#'   documentation" button to give info about the datasets.
 #'
-#' @param assignTo A character vector of length one. The symbol to assign the data to in the code.
+#' @param assignTo A character vector of length one. The symbol to assign the
+#'   data to in the code.
 #' @param input,output,session Standard module parameters.
-#' @param ignoreStyleSheet By default, the R documentation pages use a special `css` sheet for styling.
-#'                         Set this option to `FALSE` to load this stylesheet.
+#' @param ignoreStyleSheet By default, the R documentation pages use a special
+#'   `css` sheet for styling. Set this option to `FALSE` to load this
+#'   stylesheet.
 #'
-#' @return A reactive string representing the import of the dataset. for example.
+#' @return A reactive string representing the import of the dataset. for
+#'   example.
 #' \preformatted{
 #' "data('Arthritis', package = 'vcd')\ndt <- Arthritis"
 #' }
@@ -53,8 +57,9 @@ get_datasets <- function() {
 #'
 #' }
 #' @export
-libData <- function(input, output, session, assignTo = "dt", ignoreStyleSheet = TRUE){
-  Item <- Package <- ObjName <- NULL
+libData <- function(input, output, session, assignTo = "dt",
+                    ignoreStyleSheet = TRUE){
+  Package <- ObjName <- NULL
 
   datasets <- get_datasets()
 
@@ -71,16 +76,18 @@ libData <- function(input, output, session, assignTo = "dt", ignoreStyleSheet = 
   )
 
   tmp <- tempfile()
-  observeEvent(input$documentation,{
+  observeEvent(input$documentation, {
     row <- datasets[Package == input$Package & ObjName == input$ObjName, ]
     topic <- row$SourceName[1]
     db <- tools::Rd_db(input$Package)
     rdfile <- paste0(topic, ".Rd")
     req(rdfile %in% names(db))
-    tools::Rd2HTML(db[[rdfile]], tmp, no_links = TRUE, package = input$Package, stylesheet = "rcss/R.css")
+    tools::Rd2HTML(db[[rdfile]], tmp, no_links = TRUE, package = input$Package,
+                   stylesheet = "rcss/R.css")
 
-    ## TODO; Find a proper way of removing the css inclusion or load the css file locally somehow.
-    if(ignoreStyleSheet){
+    ## TODO; Find a proper way of removing the css inclusion or load the css
+    ##   file locally somehow.
+    if (ignoreStyleSheet){
       xx <- readLines(tmp)
       xx <- xx[-3]
       writeLines(xx, tmp)

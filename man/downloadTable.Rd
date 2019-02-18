@@ -19,19 +19,20 @@ downloadTableUI(id)
 \item{id}{The module identifier}
 }
 \value{
-Currently, no reactive code is returned due to issues with \code{downloadTable}. See
-\href{https://stackoverflow.com/questions/45458348/}{here}
+Currently, no reactive code is returned due to issues with
+\code{downloadTable}. See \href{https://stackoverflow.com/questions/45458348/}{here}
 }
 \description{
-This module uses \code{downloadHandler} to allow downloads of tables in different formats (xlsx,
-rds, adn csv).
+This module uses \code{downloadHandler} to allow downloads of tables in different
+formats (xlsx, rds, adn csv).
 }
 \examples{
 \dontrun{
 shinyApp(
   fluidPage(downloadTableUI("downloadTable")),
   function(input, output, session) {
-    callModule(downloadTable, "downloadTable", reactive({mtcars}), fileName = "mtcars")
+    callModule(downloadTable, "downloadTable", reactive({mtcars}),
+               fileName = "mtcars")
   }
 )
 }

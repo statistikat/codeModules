@@ -3,7 +3,7 @@ rCodeContainer <- function(...){
   div(pre(code))
 }
 
-injectHighlightHandler <- function () {
+injectHighlightHandler <- function() {
   code <- "
     Shiny.addCustomMessageHandler(
       'highlight-code',
@@ -33,15 +33,17 @@ includeHighlightJs <- function(){
 
 #' Render code with syntax highlighting
 #'
-#' These functions work similar to `renderText` and `verbatimTextOutput` but will include highlighting
-#' with `highlight.js` and `rstudio.css`.
+#' These functions work similar to `renderText` and `verbatimTextOutput` but
+#' will include highlighting with `highlight.js` and `rstudio.css`.
 #'
 #' @export
 #' @inheritParams shiny::renderText
-#' @param outputArgs A list of arguments to be passed through to the implicit call to [codeOutput]
-#'                   when `renderCode` is used in an interactive R Markdown document.
-#' @param delay How much delay to use (in ms) between rendering and firing the syntax highlighting
-#'              script. For `length(delay) > 1` the script will fire multiple times.
+#' @param outputArgs A list of arguments to be passed through to the implicit
+#'   call to [codeOutput] when `renderCode` is used in an interactive R
+#'   Markdown document.
+#' @param delay How much delay to use (in ms) between rendering and firing the
+#'   syntax highlighting script. For `length(delay) > 1` the script will fire
+#'   multiple times.
 #'
 #' @examples
 #' \dontrun{
@@ -58,12 +60,14 @@ includeHighlightJs <- function(){
 #'   }
 #' )
 #' }
-renderCode <- function(expr, env = parent.frame(), quoted = FALSE, outputArgs = list(), delay = 100){
+renderCode <- function(expr, env = parent.frame(), quoted = FALSE,
+                       outputArgs = list(), delay = 100){
   func <- exprToFunction(expr, env, quoted)
   renderFunc <- function(shinysession, name, ...) {
     value <- func()
-    for(d in delay)
-      shinysession$sendCustomMessage("highlight-code", list(id = name, delay = d))
+    for (d in delay)
+      shinysession$sendCustomMessage("highlight-code",
+                                     list(id = name, delay = d))
     return(paste(utils::capture.output(cat(value)), collapse = "\n"))
   }
   markRenderFunction(codeOutput, renderFunc, outputArgs = outputArgs)

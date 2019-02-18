@@ -5,8 +5,8 @@ dtCsv <- function(input, output, session, rTable, fileName = "tableFile"){
       paste0(fileName, "_", format(Sys.time(), "%d%m%Y_%H%M%S"), ".", "csv")
     },
     content = function(file){
-      write.table(rTable(), file, row.names = input$row.names, col.names = input$col.names,
-                  sep = input$sep, dec = input$dec)
+      write.table(rTable(), file, row.names = input$row.names,
+                  col.names = input$col.names, sep = input$sep, dec = input$dec)
     }
   )
 }
@@ -27,7 +27,9 @@ dtRds <- function(input, output, session, rTable, fileName = "tableFile"){
     filename = function() {
       paste0(fileName, "_", format(Sys.time(), "%d%m%Y_%H%M%S"), ".", "rds")
     },
-    content = function(file) { saveRDS(rTable(), file) }
+    content = function(file) {
+      saveRDS(rTable(), file)
+    }
   )
 }
 
@@ -61,26 +63,28 @@ dtXlsxUI <- function(id) {
 
 #' Download tables in different formats
 #'
-#' This module uses `downloadHandler` to allow downloads of tables in different formats (xlsx,
-#' rds, adn csv).
+#' This module uses `downloadHandler` to allow downloads of tables in different
+#' formats (xlsx, rds, adn csv).
 #'
 #' @param input,output,session Standard module parameters
 #' @param rTable A reactive table (for example a `data.frame`)
 #' @param fileName A prefix for the default name in the download handler.
 #'
-#' @return Currently, no reactive code is returned due to issues with `downloadTable`. See
-#' [here](https://stackoverflow.com/questions/45458348/)
+#' @return Currently, no reactive code is returned due to issues with
+#'   `downloadTable`. See [here](https://stackoverflow.com/questions/45458348/)
 #' @examples
 #' \dontrun{
 #' shinyApp(
 #'   fluidPage(downloadTableUI("downloadTable")),
 #'   function(input, output, session) {
-#'     callModule(downloadTable, "downloadTable", reactive({mtcars}), fileName = "mtcars")
+#'     callModule(downloadTable, "downloadTable", reactive({mtcars}),
+#'                fileName = "mtcars")
 #'   }
 #' )
 #' }
 #' @export
-downloadTable <- function(input, output, session, rTable, fileName = "tableFile") {
+downloadTable <- function(input, output, session, rTable,
+                          fileName = "tableFile") {
   callModule(dtCsv, "csv", rTable, fileName)
   callModule(dtRds, "rds", rTable, fileName)
   callModule(dtXlsx, "xlsx", rTable, fileName)

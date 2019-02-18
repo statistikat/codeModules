@@ -27,8 +27,9 @@ ggDownloadUI(id, downloadText = "Download image file",
 A reactive string that represents the code for downloading the plot.
 }
 \description{
-Create a ui that contains controls for the height and width of the plot as well as a
-\code{downloadButton}. The module uses \link{ggsave} to convert the plot into an image file.
+Create a ui that contains controls for the height and width of the plot as
+well as a \code{downloadButton}. The module uses \link{ggsave} to convert the plot
+into an image file.
 }
 \examples{
 \dontrun{

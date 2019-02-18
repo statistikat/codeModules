@@ -9,15 +9,15 @@ evalCode(code, env = parent.frame())
 \arguments{
 \item{code}{A \code{character} of length one giving the code to be evaluated.}
 
-\item{env}{The environment where the code should be evaluated. Defaults to the
-calling environment.}
+\item{env}{The environment where the code should be evaluated. Defaults to
+the calling environment.}
 }
 \value{
 The result of the specified expression or \code{NULL} in case of an error
 }
 \description{
-\code{evalCode} tries to evaluate code given as a sting. In case of an error, a modal pops
-up showing the resulting error message.
+\code{evalCode} tries to evaluate code given as a sting. In case of an error, a
+modal pops up showing the resulting error message.
 }
 \examples{
 \dontrun{

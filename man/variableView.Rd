@@ -25,11 +25,12 @@ selectedVar(id)
 A reactive string representing the code to transform the dataset.
 }
 \description{
-This module gives a way to recode dataframes by changing column names and column classes. Also,
-datasets can be filtered based on UI inputs.
+This module gives a way to recode dataframes by changing column names and
+column classes. Also, datasets can be filtered based on UI inputs.
 }
 \details{
-\code{selectedVar} is an optional ui element which will show a summary of the variable selected in
+\code{selectedVar} is an optional ui element which will show a summary of the
+variable selected in
 \code{variableViewUI}.
 }
 \examples{
@@ -41,7 +42,8 @@ data("diamonds", package = "ggplot2")
 
 shinyApp(
   fluidPage(
-    column(6, selectInput("dataset", "choose dataset", choices = c("mtcars", "tips", "diamonds")),
+    column(6, selectInput("dataset", "choose dataset",
+           choices = c("mtcars", "tips", "diamonds")),
               variableViewUI("vv")),
     column(6, codeOutput("code"), selectedVar("vv"), DTOutput("filtered"))
   ),

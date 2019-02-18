@@ -1,7 +1,7 @@
 #' Download widgets as html
 #'
-#' Shiny module to save shiny widgets as `html` files. Internally, the conversion is done with
-#' [htmlwidgets::saveWidget].
+#' Shiny module to save shiny widgets as `html` files. Internally, the
+#' conversion is done with [htmlwidgets::saveWidget].
 #'
 #' @param input,output,session Standard shiny module parameters
 #' @param rWidget A reactive returning a shiny widget
@@ -16,7 +16,8 @@
 #' )
 #' }
 #' @export
-widgetDownload <- function(input, output, session, rWidget, filename = "widget.html") {
+widgetDownload <- function(input, output, session, rWidget,
+                           filename = "widget.html") {
   output$download <- downloadHandler(
     filename = filename,
     content = function(file) {

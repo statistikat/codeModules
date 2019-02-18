@@ -15,10 +15,11 @@ readDataUI(id)
 
 \item{path}{A reactive value representing the path of the file to be read.}
 
-\item{callback}{A function that will be called in case of unsupported formats. Should have no arguments.}
+\item{callback}{A function that will be called in case of unsupported
+formats. Should have no arguments.}
 
-\item{symbol}{Optional: A symbol to use in the import code in place of the path. This is useful if the
-path has previously been saved as a variable.}
+\item{symbol}{Optional: A symbol to use in the import code in place of the
+path. This is useful if the path has previously been saved as a variable.}
 
 \item{id}{The module identifier.}
 }
@@ -26,8 +27,9 @@ path has previously been saved as a variable.}
 A reactive string representing the code to read the dataset.
 }
 \description{
-Shiny module for reading data into R. currently, the formats \code{.csv}, \code{.sav}, \code{.xlsx}, \code{.rds}
-and \code{.Rdata} are supported. the following formats will be mapped \code{.txt -> .csv}, \code{.xls -> .xlsx}.
+Shiny module for reading data into R. currently, the formats \code{.csv}, \code{.sav},
+\code{.xlsx}, \code{.rds} and \code{.Rdata} are supported. the following formats will be
+mapped \code{.txt -> .csv}, \code{.xls -> .xlsx}.
 }
 \examples{
 \dontrun{
