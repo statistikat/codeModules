@@ -3,6 +3,8 @@ title: "codeModules"
 output: github_document
 ---
 
+[![Travis build status](https://travis-ci.org/statistikat/codeModules.svg?branch=master)](https://travis-ci.org/statistikat/codeModules)
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -26,7 +28,6 @@ The outputs can then be parsed as R code using `eval(parse(text = code()))` or `
 code <- callModule(libData, id = "some_id", assignTo = "dt")
 output$table <- renderTable({
   evalCode(code())
-  return(dt)
 })
 
 ```

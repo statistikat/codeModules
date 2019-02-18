@@ -1,40 +1,49 @@
 codeModules
 ================
 
-About
------
+[![Travis build
+status](https://travis-ci.org/statistikat/codeModules.svg?branch=master)](https://travis-ci.org/statistikat/codeModules)
 
-This R package consists of several [shiny modules](https://shiny.rstudio.com/articles/modules.html) that return R code in the form of `reactive` characters. All those modules represent common operations regarding
+## About
 
--   Import of data (`read.csv`, `read.xlsx`, `data()`, ...)
--   Manipulation of data (rename columns, change column classes, filtering)
--   export of data (`write.csv`, `write.xlsx`, ...)
+This R package consists of several [shiny
+modules](https://shiny.rstudio.com/articles/modules.html) that return R
+code in the form of `reactive` characters. All those modules represent
+common operations regarding
 
-Usage
------
+  - Import of data (`read.csv`, `read.xlsx`, `data()`, …)
+  - Manipulation of data (rename columns, change column classes,
+    filtering)
+  - export of data (`write.csv`, `write.xlsx`, …)
 
-Always save the output from `callModule` into a variable when working with modules from this package. The outputs can then be parsed as R code using `eval(parse(text = code()))` or `evalCode`.
+## Usage
+
+Always save the output from `callModule` into a variable when working
+with modules from this package. The outputs can then be parsed as R code
+using `eval(parse(text = code()))` or `evalCode`.
 
 ``` r
 ## context: server.R
 code <- callModule(libData, id = "some_id", assignTo = "dt")
 output$table <- renderTable({
   evalCode(code())
-  return(dt)
 })
 ```
 
-Implemented Modules
--------------------
+## Implemented Modules
 
--   **libData**: read data from `R` packages using `utils::data`
--   **readData**: read data from a file using `read.csv`, `read.xlsx` or others depending on the fileextension.
--   **variableView** Rename columns, filter data and change column types. The ui is oriented on the "variable view" in SPSS
--   **ggDownload** Download ggplot with custom height, width and filetype (`png`, `jpeg`, ...)
--   **downloadTable** Download tables (usually `data.frames`) as `csv`, `xlsx`, `rds`.
+  - **libData**: read data from `R` packages using `utils::data`
+  - **readData**: read data from a file using `read.csv`, `read.xlsx` or
+    others depending on the fileextension.
+  - **variableView** Rename columns, filter data and change column
+    types. The ui is oriented on the “variable view” in SPSS
+  - **ggDownload** Download ggplot with custom height, width and
+    filetype (`png`, `jpeg`, …)
+  - **downloadTable** Download tables (usually `data.frames`) as `csv`,
+    `xlsx`, `rds`.
 
-Other functions
----------------
+## Other functions
 
--   **renderCode/codeOutput** Show code with syntax highlighting in the UI.
--   **evalCode** Warapper for `eval(parse(text = .))` with error pupups.
+  - **renderCode/codeOutput** Show code with syntax highlighting in the
+    UI.
+  - **evalCode** Warapper for `eval(parse(text = .))` with error pupups.
