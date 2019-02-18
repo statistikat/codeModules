@@ -1,0 +1,6 @@
+development:
+  mode: unreleased
+
+template:
+  params:
+    bootswatch: cosmo
