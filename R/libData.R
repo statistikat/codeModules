@@ -1,5 +1,7 @@
 get_datasets <- function() {
-  datasets <- as.data.table(suppressWarnings(data(package = .packages(all.available = TRUE))$results))
+  Item <- Package <- ObjName <- Title <- SourceName <- NULL
+  datasets <- as.data.table(suppressWarnings(utils::data(
+    package = .packages(all.available = TRUE))$results))
   # do some string splitting to convert for exmple "fdeaths (UKLungDeaths)" into two columns
   ObjName <- Package <- NULL
   datasets[, ObjName := Item]
@@ -52,6 +54,8 @@ get_datasets <- function() {
 #' }
 #' @export
 libData <- function(input, output, session, assignTo = "dt", ignoreStyleSheet = TRUE){
+  Item <- Package <- ObjName <- NULL
+
   datasets <- get_datasets()
 
   shiny::addResourcePath("rcss", system.file("html", package = "codeModules"))

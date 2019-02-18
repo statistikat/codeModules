@@ -27,7 +27,7 @@ widgetDownload <- function(input, output, session, rWidget, filename = "widget.h
 
 #' @rdname widgetDownload
 #' @param id The id of the module
-#' @param btntext The text appearing on the download button
+#' @param btnText The text appearing on the download button
 #' @export
 widgetDownloadUI <- function(id, btnText = "Download widget") {
   ns <- NS(id)

@@ -18,7 +18,7 @@ widgetDownloadUI(id, btnText = "Download widget")
 
 \item{id}{The id of the module}
 
-\item{btntext}{The text appearing on the download button}
+\item{btnText}{The text appearing on the download button}
 }
 \description{
 Shiny module to save shiny widgets as \code{html} files. Internally, the conversion is done with
