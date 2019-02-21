@@ -11,7 +11,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Shiny modules for reproducible code">
-<meta property="og:description" content="A collection of shiny modules for common data operations (importing, exproting, manipulation). All modules from this package return code in the form of reactive (observable) strings.">
+<meta property="og:description" content="A collection of shiny modules for common data operations (importing, exporting, manipulation). All modules from this package return code in the form of reactive (observable) strings.">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -96,16 +96,16 @@
 <a href="#implemented-modules" class="anchor"></a>Implemented Modules</h2>
 <ul>
 <li>
-<strong>libData</strong>: read data from <code>R</code> packages using <code><a href="https://www.rdocumentation.org/packages/utils/topics/data">utils::data</a></code>
+<strong><code>libData</code></strong>: read data from <code>R</code> packages using <code><a href="https://www.rdocumentation.org/packages/utils/topics/data">utils::data</a></code>
 </li>
 <li>
-<strong>readData</strong>: read data from a file using <code>read.csv</code>, <code>read.xlsx</code> or others depending on the fileextension.</li>
+<strong><code>readData</code></strong>: read data from a file using <code>read.csv</code>, <code>read.xlsx</code> or others depending on the file-extension.</li>
 <li>
-<strong>variableView</strong> Rename columns, filter data and change column types. The ui is oriented on the “variable view” in SPSS</li>
+<strong><code>variableView</code></strong> Rename columns, filter data and change column types. The layout is oriented on the “variable view” in SPSS</li>
 <li>
-<strong>ggDownload</strong> Download ggplot with custom height, width and filetype (<code>png</code>, <code>jpeg</code>, …)</li>
+<strong><code>ggDownload</code></strong> Download <code>ggplot</code> with custom height, width and file-type (<code>png</code>, <code>jpeg</code>, …)</li>
 <li>
-<strong>downloadTable</strong> Download tables (usually <code>data.frames</code>) as <code>csv</code>, <code>xlsx</code>, <code>rds</code>.</li>
+<strong><code>downloadTable</code></strong> Download tables (usually <code>data.frames</code>) as <code>csv</code>, <code>xlsx</code>, <code>rds</code>.</li>
 </ul>
 </div>
 <div id="other-functions" class="section level2">
@@ -113,9 +113,9 @@
 <a href="#other-functions" class="anchor"></a>Other functions</h2>
 <ul>
 <li>
-<strong>renderCode/codeOutput</strong> Show code with syntax highlighting in the UI.</li>
+<strong><code>renderCode</code>/<code>codeOutput</code></strong> Show code with syntax highlighting.</li>
 <li>
-<strong>evalCode</strong> Warapper for <code><a href="https://www.rdocumentation.org/packages/base/topics/eval">eval(parse(text = .))</a></code> with error pupups.</li>
+<strong><code>evalCode</code></strong> Wrapper for <code><a href="https://www.rdocumentation.org/packages/base/topics/eval">eval(parse(text = .))</a></code> with error popups.</li>
 </ul>
 </div>
   </div>
