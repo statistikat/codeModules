@@ -25,8 +25,8 @@ selectedVar(id)
 A reactive string representing the code to transform the dataset.
 }
 \description{
-This module gives a way to recode dataframes by changing column names and
-column classes. Also, datasets can be filtered based on UI inputs.
+This module gives a way to manipulate dataframes by changing column names and
+column classes. Also, datasets can be filtered based on user inputs.
 }
 \details{
 \code{selectedVar} is an optional ui element which will show a summary of the

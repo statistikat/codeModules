@@ -1,4 +1,4 @@
-#' Read data in different formats (xlsx, rds, csv, ...)
+#' Read data in different formats (`xlsx`, `rds`, `csv`, ...)
 #'
 #' Shiny module for reading data into R. currently, the formats `.csv`, `.sav`,
 #' `.xlsx`, `.rds` and `.Rdata` are supported. the following formats will be

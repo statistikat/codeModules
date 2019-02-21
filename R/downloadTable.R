@@ -64,7 +64,7 @@ dtXlsxUI <- function(id) {
 #' Download tables in different formats
 #'
 #' This module uses `downloadHandler` to allow downloads of tables in different
-#' formats (xlsx, rds, adn csv).
+#' formats (`xlsx`, `rds`, and `csv`).
 #'
 #' @param input,output,session Standard module parameters
 #' @param rTable A reactive table (for example a `data.frame`)

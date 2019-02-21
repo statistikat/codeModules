@@ -10,9 +10,10 @@ Author: Gregor de Cillia
 Authors@R: c(person("Gregor", "de Cillia", role = c("aut", "cre"), 
                     email = "Gregor.DeCillia@statistik.gv.at"))
 Maintainer: Gregor de Cillia  <Gregor.DeCillia@statistik.gv.at>
-Description: A collection of shiny modules for common data operations (importing, exproting, manipulation). All modules from this package return code in the form of reactive (observable) strings.
+Description: A collection of shiny modules for common data operations (importing, exporting, manipulation). All modules from this package return code in the form of reactive (observable) strings.
 License: GPL-3
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/statistikat/codeModules
 BugReports: https://github.com/statistikat/codeModules/issues
+Language: en-US

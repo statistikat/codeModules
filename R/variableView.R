@@ -20,8 +20,8 @@ plot_vec_factor <- function(vec, kept_levels) {
 
 #' SPSS like variable view
 #'
-#' This module gives a way to recode dataframes by changing column names and
-#' column classes. Also, datasets can be filtered based on UI inputs.
+#' This module gives a way to manipulate dataframes by changing column names and
+#' column classes. Also, datasets can be filtered based on user inputs.
 #'
 #' `selectedVar` is an optional ui element which will show a summary of the
 #'   variable selected in

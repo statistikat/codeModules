@@ -3,7 +3,7 @@
 \name{readData}
 \alias{readData}
 \alias{readDataUI}
-\title{Read data in different formats (xlsx, rds, csv, ...)}
+\title{Read data in different formats (\code{xlsx}, \code{rds}, \code{csv}, ...)}
 \usage{
 readData(input, output, session, path, callback = function() { },
   symbol = NULL)

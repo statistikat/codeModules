@@ -22,7 +22,7 @@ widgetDownloadUI(id, btnText = "Download widget")
 }
 \description{
 Shiny module to save shiny widgets as \code{html} files. Internally, the
-conversion is done with \link[htmlwidgets:saveWidget]{htmlwidgets::saveWidget}.
+conversion is done with \code{\link[htmlwidgets:saveWidget]{htmlwidgets::saveWidget}}.
 }
 \examples{
 \dontrun{

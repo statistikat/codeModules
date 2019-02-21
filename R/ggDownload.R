@@ -3,7 +3,7 @@ dev_emf <- function(filename, ...) {
   devEMF::emf(filename, ...)
 }
 
-##' Download a ggplot object as an image file.
+##' Download a `ggplot` object as an image file.
 ##'
 ##' Create a ui that contains controls for the height and width of the plot as
 ##' well as a `downloadButton`. The module uses [ggsave] to convert the plot
