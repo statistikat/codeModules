@@ -1,7 +1,7 @@
 Package: codeModules
 Type: Package
 Title: Shiny modules for reproducible code
-Version: 0.1.2
+Version: 0.1.3
 Date: 2018-03-29
 Depends: shiny
 Imports: data.table, dplyr, DT, htmlwidgets, ggplot2, shinyWidgets, shinyjs
