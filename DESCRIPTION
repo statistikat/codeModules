@@ -5,7 +5,7 @@ Version: 0.1.2
 Date: 2018-03-29
 Depends: shiny
 Imports: data.table, dplyr, DT, htmlwidgets, ggplot2, shinyWidgets, shinyjs
-Suggests: reshape2, xlsx
+Suggests: reshape2, xlsx, devEMF
 Author: Gregor de Cillia
 Authors@R: c(person("Gregor", "de Cillia", role = c("aut", "cre"), 
                     email = "Gregor.DeCillia@statistik.gv.at"))

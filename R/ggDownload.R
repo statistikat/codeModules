@@ -1,3 +1,8 @@
+dev_emf <- function(filename, ...) {
+  requireNamespace("devEMF")
+  devEMF::emf(filename, ...)
+}
+
 ##' Download a ggplot object as an image file.
 ##'
 ##' Create a ui that contains controls for the height and width of the plot as
@@ -41,8 +46,11 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
     dir.create(plotDir, recursive = TRUE)
 
   savePlot <- function(file){
+    device <- input$format
+    if (device == "emf")
+      device <- dev_emf
     ggsave(filename = file, plot = plotObj(), width = input$width,
-           height = input$height, device = input$format, dpi = input$dpi)
+           height = input$height, device = device, dpi = input$dpi)
   }
 
   output$download <- downloadHandler(
@@ -94,7 +102,7 @@ ggDownloadUI <- function(id, downloadText = "Download image file",
     shinyjs::useShinyjs(),
     div(align = "center", selectInput(
       ns("format"), "Format", c("png", "pdf", "jpeg", "bmp", "svg", "eps",
-                                "ps", "tex"))),
+                                "ps", "tex", "emf"))),
     div(align = "center", sliderInput(
       ns("width"), label = strong("width"), min = 1, max = 30,
       value = 10, step = .1, width = "90%", post = " in")),
