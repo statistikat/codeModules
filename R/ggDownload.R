@@ -58,9 +58,13 @@ ggDownload <- function(input, output, session, plotObj, plotObjName = "ggObj"){
       paste0("grafik_", format(Sys.time(), "%d%m%Y_%H%M%S"), ".", input$format)
     },
     content = function(file) {
+      device <- input$format
+      if (device == "emf")
+        device <- as.symbol("codeModules:::dev_emf")
       code_save$code <- paste0(
-        funCode("ggsave", list(filename = paste0("grafik.", input$format),
-                               width = input$width, height = input$height)),
+        funCode("ggsave", list(
+          filename = paste0("grafik.", input$format), width = input$width,
+          height = input$height, device = device, dpi = input$dpi)),
         "\n"
       )
 
