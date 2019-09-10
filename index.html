@@ -6,9 +6,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shiny modules for reproducible code • codeModules</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Shiny modules for reproducible code">
 <meta property="og:description" content="A collection of shiny modules for common data operations (importing, exporting, manipulation). All modules from this package return code in the form of reactive (observable) strings.">
@@ -20,7 +27,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -40,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -51,7 +58,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/statistikat/codeModules">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -64,19 +71,19 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
+      </header><div class="row">
+  <div class="contents col-md-9">
+<div id="codemodules" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#codemodules" class="anchor"></a>codeModules</h1></div>
 
 <div id="about" class="section level2">
 <h2 class="hasAnchor">
 <a href="#about" class="anchor"></a>About</h2>
 <p>This R package consists of several <a href="https://shiny.rstudio.com/articles/modules.html">shiny modules</a> that return R code in the form of <code>reactive</code> characters. All those modules represent common operations regarding</p>
 <ul>
-<li>Import of data (<code>read.csv</code>, <code>read.xlsx</code>, <code><a href="https://www.rdocumentation.org/packages/utils/topics/data">data()</a></code>, …)</li>
+<li>Import of data (<code>read.csv</code>, <code>read.xlsx</code>, <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code>, …)</li>
 <li>Manipulation of data (rename columns, change column classes, filtering)</li>
 <li>export of data (<code>write.csv</code>, <code>write.xlsx</code>, …)</li>
 </ul>
@@ -84,7 +91,7 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Always save the output from <code>callModule</code> into a variable when working with modules from this package. The outputs can then be parsed as R code using <code><a href="https://www.rdocumentation.org/packages/base/topics/eval">eval(parse(text = code()))</a></code> or <code>evalCode</code>.</p>
+<p>Always save the output from <code>callModule</code> into a variable when working with modules from this package. The outputs can then be parsed as R code using <code><a href="https://rdrr.io/r/base/eval.html">eval(parse(text = code()))</a></code> or <code>evalCode</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">## context: server.R</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">code &lt;-<span class="st"> </span><span class="kw">callModule</span>(libData, <span class="dt">id =</span> <span class="st">"some_id"</span>, <span class="dt">assignTo =</span> <span class="st">"dt"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">output<span class="op">$</span>table &lt;-<span class="st"> </span><span class="kw">renderTable</span>({</a>
@@ -96,7 +103,7 @@
 <a href="#implemented-modules" class="anchor"></a>Implemented Modules</h2>
 <ul>
 <li>
-<strong><code>libData</code></strong>: read data from <code>R</code> packages using <code><a href="https://www.rdocumentation.org/packages/utils/topics/data">utils::data</a></code>
+<strong><code>libData</code></strong>: read data from <code>R</code> packages using <code><a href="https://rdrr.io/r/utils/data.html">utils::data</a></code>
 </li>
 <li>
 <strong><code>readData</code></strong>: read data from a file using <code>read.csv</code>, <code>read.xlsx</code> or others depending on the file-extension.</li>
@@ -115,8 +122,9 @@
 <li>
 <strong><code>renderCode</code>/<code>codeOutput</code></strong> Show code with syntax highlighting.</li>
 <li>
-<strong><code>evalCode</code></strong> Wrapper for <code><a href="https://www.rdocumentation.org/packages/base/topics/eval">eval(parse(text = .))</a></code> with error popups.</li>
+<strong><code>evalCode</code></strong> Wrapper for <code><a href="https://rdrr.io/r/base/eval.html">eval(parse(text = .))</a></code> with error popups.</li>
 </ul>
+</div>
 </div>
   </div>
 
@@ -143,14 +151,13 @@
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/statistikat/codeModules"><img src="https://travis-ci.org/statistikat/codeModules.svg?branch=master" alt="Travis build status"></a></li>
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -159,12 +166,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.9000.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

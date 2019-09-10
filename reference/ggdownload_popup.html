@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evaluate strings with error popups — evalCode • codeModules</title>
+<title>Download ggplots with a modal window — ggdownload_popup_ui • codeModules</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,9 +44,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Evaluate strings with error popups — evalCode" />
-<meta property="og:description" content="evalCode tries to evaluate code given as a sting. In case of an error, a
-modal pops up showing the resulting error message." />
+<meta property="og:title" content="Download ggplots with a modal window — ggdownload_popup_ui" />
+<meta property="og:description" content="this module invokes a modal window, where parameters for the function
+ggsave() can be specified`" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -116,50 +116,54 @@ modal pops up showing the resulting error message." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Evaluate strings with error popups</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/codeModules/blob/master/R/evalCode.R'><code>R/evalCode.R</code></a></small>
-    <div class="hidden name"><code>evalCode.Rd</code></div>
+    <h1>Download ggplots with a modal window</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/codeModules/blob/master/R/ggdownload_popup.R'><code>R/ggdownload_popup.R</code></a></small>
+    <div class="hidden name"><code>ggdownload_popup.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>evalCode</code> tries to evaluate code given as a sting. In case of an error, a
-modal pops up showing the resulting error message.</p>
+    <p>this module invokes a modal window, where parameters for the function
+<code>ggsave()</code> can be specified`</p>
     </div>
 
-    <pre class="usage"><span class='fu'>evalCode</span>(<span class='no'>code</span>, <span class='kw'>env</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
+    <pre class="usage"><span class='fu'>ggdownload_popup_ui</span>(<span class='no'>id</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"download..."</span>)
+
+<span class='fu'>ggdownload_popup_server</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='no'>plotObj</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>code</th>
-      <td><p>A <code>character</code> of length one giving the code to be evaluated.</p></td>
+      <th>id</th>
+      <td><p>module identifier</p></td>
     </tr>
     <tr>
-      <th>env</th>
-      <td><p>The environment where the code should be evaluated. Defaults to
-the calling environment.</p></td>
+      <th>label</th>
+      <td><p>label of the button</p></td>
+    </tr>
+    <tr>
+      <th>input, output, session</th>
+      <td><p>Standard module parameters</p></td>
+    </tr>
+    <tr>
+      <th>plotObj</th>
+      <td><p>A reactive ggplot object</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>The result of the specified expression or <code>NULL</code> in case of an error</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>shinyApp</span>(
-  <span class='fu'>fluidPage</span>(
-    <span class='fu'>textAreaInput</span>(<span class='st'>"code"</span>, <span class='st'>"code"</span>, <span class='st'>"# intended typo\nrnrm(100)"</span>),
-    <span class='fu'>actionButton</span>(<span class='st'>"evaluate"</span>, <span class='st'>"evaluate"</span>),
-    <span class='fu'>verbatimTextOutput</span>(<span class='st'>"result"</span>)
+  <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'>fluidPage</span>(
+    <span class='fu'>ggdownload_popup_ui</span>(<span class='st'>"gg_popup"</span>)
   ),
-  <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>){
-    <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>eventReactive</span>(
-      <span class='no'>input</span>$<span class='no'>evaluate</span>,
-      <span class='fu'>evalCode</span>(<span class='no'>input</span>$<span class='no'>code</span>)
-    )
-    <span class='no'>output</span>$<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>renderPrint</span>(<span class='fu'>res</span>())
+  <span class='kw'>server</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>) {
+    <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>reactive</span>({
+      <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+      <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()
+    })
+    <span class='fu'>callModule</span>(<span class='no'>ggdownload_popup_server</span>, <span class='st'>"gg_popup"</span>, <span class='no'>plot</span>)
   }
 )
 }</div></pre>
@@ -168,7 +172,6 @@ the calling environment.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
