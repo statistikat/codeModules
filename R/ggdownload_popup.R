@@ -6,6 +6,7 @@
 #' @param label label of the button
 #'
 #' @rdname ggdownload_popup
+#' @export
 ggdownload_popup_ui <- function(id, label = "download...") {
   ns <- NS(id)
   actionButton(ns("show_dialog"), label)
@@ -36,6 +37,7 @@ two_cols <- function(x, y) {
 #' @rdname ggdownload_popup
 #' @param input,output,session Standard module parameters
 #' @param plotObj A reactive ggplot object
+#' @export
 ggdownload_popup_server <- function(input, output, session, plotObj) {
   ns <- session$ns
   observeEvent(input$show_dialog, {

@@ -17,3 +17,4 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/statistikat/codeModules
 BugReports: https://github.com/statistikat/codeModules/issues
 Language: en-US
+Encoding: UTF-8
