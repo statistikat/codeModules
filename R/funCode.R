@@ -16,7 +16,7 @@ funCode <- function(funName, args){
   args <- args[!vapply(
     args,
     function(x) {
-      is.null(x) || x == "NA" || x == ""
+      is.null(x) || (length(x) == 0 && (x == "NA" || x == ""))
     },
     TRUE
   )]
