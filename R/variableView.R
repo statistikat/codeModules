@@ -206,8 +206,8 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
     modify_classes <- paste(unlist(
       lapply(seq_len(ncol(ds)), function(i){
         if (classes[i] != classes_orig[i])
-          paste0(dataName, "$", names_mod[i], " <- ", "as.", classes[i], "(",
-                 dataName, "$", names_mod[i], ")")
+          paste0(dataName, "$`", names_mod[i], "` <- ", "as.", classes[i], "(",
+                 dataName, "$`", names_mod[i], "`)")
       })
     ), collapse = "\n")
 
@@ -220,7 +220,7 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
             if (length(setdiff(as.character(unique(ds[[i]])), filter_vals))
                 != 0) {
               paste0(
-                dataName, " <- subset(", dataName, ", ", names_mod[i], " %in% ",
+                dataName, " <- subset(", dataName, ", `", names_mod[i], "` %in% ",
                 "c(", paste(shQuote(filter_vals), collapse = ", "), "))\n"
               )
             }
@@ -230,12 +230,12 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
             paste0(
               if (!isTRUE(all.equal(filter_vals[2],
                                     max(ds[[i]], na.rm = TRUE))))
-                paste0(dataName, " <- subset(", dataName, ", ", names_mod[i],
-                       "<=", filter_vals[2], ")\n"),
+                paste0(dataName, " <- subset(", dataName, ", `", names_mod[i],
+                       "`<=", filter_vals[2], ")\n"),
               if (!isTRUE(all.equal(filter_vals[1],
                                     min(ds[[i]], na.rm = TRUE))))
-                paste0(dataName, " <- subset(", dataName, ", ", names_mod[i],
-                       ">=", filter_vals[1], ")\n")
+                paste0(dataName, " <- subset(", dataName, ", `", names_mod[i],
+                       "`>=", filter_vals[1], ")\n")
             )
           }
         )
