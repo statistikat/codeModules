@@ -28,7 +28,7 @@ get_datasets <- function() {
 #' @param input,output,session Standard module parameters.
 #' @param ignoreStyleSheet By default, the R documentation pages use a special
 #'   `css` sheet for styling. Set this option to `FALSE` to load this
-#'   stylesheet.
+#'   style sheet.
 #'
 #' @return A reactive string representing the import of the dataset. for
 #'   example.

@@ -3,7 +3,7 @@
 \name{ggDownload}
 \alias{ggDownload}
 \alias{ggDownloadUI}
-\title{Download a ggplot object as an image file.}
+\title{Download a \code{ggplot} object as an image file.}
 \usage{
 ggDownload(input, output, session, plotObj, plotObjName = "ggObj")
 

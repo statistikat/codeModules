@@ -24,7 +24,7 @@ Currently, no reactive code is returned due to issues with
 }
 \description{
 This module uses \code{downloadHandler} to allow downloads of tables in different
-formats (xlsx, rds, adn csv).
+formats (\code{xlsx}, \code{rds}, and \code{csv}).
 }
 \examples{
 \dontrun{

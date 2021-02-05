@@ -18,7 +18,7 @@ data to in the code.}
 
 \item{ignoreStyleSheet}{By default, the R documentation pages use a special
 \code{css} sheet for styling. Set this option to \code{FALSE} to load this
-stylesheet.}
+style sheet.}
 
 \item{id}{The module identifier.}
 

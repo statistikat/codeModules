@@ -34,13 +34,14 @@ output$table <- renderTable({
 
 ## Implemented Modules
 
-* **libData**: read data from `R` packages using `utils::data`
-* **readData**: read data from a file using `read.csv`, `read.xlsx` or others depending on the fileextension.
-* **variableView** Rename columns, filter data and change column types. The ui is oriented on the "variable view" in SPSS
-* **ggDownload** Download ggplot with custom height, width and filetype (`png`, `jpeg`, ...)
-* **downloadTable** Download tables (usually `data.frames`) as `csv`, `xlsx`, `rds`.
+* **`libData`**: read data from `R` packages using `utils::data`
+* **`readData`**: read data from a file using `read.csv`, `read.xlsx` or others depending on the file-extension.
+* **`variableView`** Rename columns, filter data and change column types. The 
+  layout is oriented on the "variable view" in SPSS
+* **`ggDownload`** Download `ggplot` with custom height, width and file-type (`png`, `jpeg`, ...)
+* **`downloadTable`** Download tables (usually `data.frames`) as `csv`, `xlsx`, `rds`.
 
 ## Other functions
 
-* **renderCode/codeOutput** Show code with syntax highlighting in the UI.
-* **evalCode** Warapper for `eval(parse(text = .))` with error pupups.
+* **`renderCode`/`codeOutput`** Show code with syntax highlighting.
+* **`evalCode`** Wrapper for `eval(parse(text = .))` with error popups.

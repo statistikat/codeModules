@@ -1,6 +1,6 @@
 #' Generate code for function call
 #'
-#' Creates a string that reptresents a function call based on an argument list.
+#' Creates a string that represents a function call based on an argument list.
 #'
 #' @param args a named, partly named or unnamed list containing the parameters
 #'   for the function. Supported types are `logical`, `numeric` and `character`.
@@ -16,7 +16,7 @@ funCode <- function(funName, args){
   args <- args[!vapply(
     args,
     function(x) {
-      is.null(x) || x == "NA" || x == ""
+      is.null(x) || (length(x) == 0 && (x == "NA" || x == ""))
     },
     TRUE
   )]

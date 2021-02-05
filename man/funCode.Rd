@@ -17,7 +17,7 @@ Entries of \code{NULL}, \code{NA}, \code{""} and \code{"NA"} will be ignored.}
 A character vector of length one
 }
 \description{
-Creates a string that reptresents a function call based on an argument list.
+Creates a string that represents a function call based on an argument list.
 }
 \examples{
 args <- list(dat = "dt", m = "u", xlab = c("kja", "jsak", "saj"), z = 1,
