@@ -22,7 +22,15 @@ selectedVar(id)
 \item{id}{The id of the module.}
 }
 \value{
-A reactive string representing the code to transform the dataset.
+A list with the following entries
+\itemize{
+\item \code{code} a reactive string representing the code to transform the dataset.
+\item \code{get_state()} A function to export the state of the widget into an
+R object
+\item \code{get_state(state)} A function to restore a saved state. The dataset
+provided in \code{dataset} must be the same as when \code{get_state()} was called
+in order to ensure a proper restore
+}
 }
 \description{
 This module gives a way to manipulate dataframes by changing column names and
@@ -44,17 +52,25 @@ shinyApp(
   fluidPage(
     column(6, selectInput("dataset", "choose dataset",
            choices = c("mtcars", "tips", "diamonds")),
-              variableViewUI("vv")),
+              variableViewUI("vv"), actionButton("save", "save"),
+              actionButton("load", "load")),
     column(6, codeOutput("code"), selectedVar("vv"), DTOutput("filtered"))
   ),
   function(input, output, session){
     dataset <- reactive({get(input$dataset)})
 
-    code <- callModule(variableView, "vv", dataset)
-    output$code <- renderCode({ code() })
+    varView <- callModule(variableView, "vv", dataset)
+    state <- NULL
+    observeEvent(input$save, {
+       state <<- isolate(varView$get_state())
+    })
+    observeEvent(input$load, {
+      varView$set_state(state)
+    })
+    output$code <- renderCode({ varView$code() })
     output$filtered <- renderDT({
       dat <- isolate(dataset())
-      eval(parse(text = code()))
+      eval(parse(text = varView$code()))
       dat
    })
   },

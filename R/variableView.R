@@ -31,7 +31,13 @@ plot_vec_factor <- function(vec, kept_levels) {
 #' @param dataset A `reactive` table (for example a `data.frame`)
 #' @param dataName A `character` of length one giving the name of the dataset.
 #'
-#' @return A reactive string representing the code to transform the dataset.
+#' @return A list with the following entries
+#' * `code` a reactive string representing the code to transform the dataset.
+#' * `get_state()` A function to export the state of the widget into an
+#'   R object
+#' * `get_state(state)` A function to restore a saved state. The dataset
+#'   provided in `dataset` must be the same as when `get_state()` was called
+#'   in order to ensure a proper restore
 #' @importFrom htmlwidgets JS
 #' @importFrom shinyWidgets pickerInput
 #' @importFrom graphics hist plot
@@ -49,17 +55,25 @@ plot_vec_factor <- function(vec, kept_levels) {
 #'   fluidPage(
 #'     column(6, selectInput("dataset", "choose dataset",
 #'            choices = c("mtcars", "tips", "diamonds")),
-#'               variableViewUI("vv")),
+#'               variableViewUI("vv"), actionButton("save", "save"),
+#'               actionButton("load", "load")),
 #'     column(6, codeOutput("code"), selectedVar("vv"), DTOutput("filtered"))
 #'   ),
 #'   function(input, output, session){
 #'     dataset <- reactive({get(input$dataset)})
 #'
-#'     code <- callModule(variableView, "vv", dataset)
-#'     output$code <- renderCode({ code() })
+#'     varView <- callModule(variableView, "vv", dataset)
+#'     state <- NULL
+#'     observeEvent(input$save, {
+#'        state <<- isolate(varView$get_state())
+#'     })
+#'     observeEvent(input$load, {
+#'       varView$set_state(state)
+#'     })
+#'     output$code <- renderCode({ varView$code() })
 #'     output$filtered <- renderDT({
 #'       dat <- isolate(dataset())
-#'       eval(parse(text = code()))
+#'       eval(parse(text = varView$code()))
 #'       dat
 #'    })
 #'   },
@@ -186,6 +200,29 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
     )
   })
 
+  get_state <- function() {
+    ds <- dataset()
+    tibble::tibble(
+      class = shinyValue("class", ncol(ds)),
+      name = shinyValue("name", ncol(ds)),
+      filter_vals = lapply(seq_len(ncol(ds)), function(i) {
+        input[[paste0("filter", i)]]
+      })
+    )
+  }
+
+  set_state <- function(state) {
+    for (i in seq_len(nrow(state))) {
+      updateRadioButtons(session, paste0("class", i), selected = state$class[i])
+      updateTextInput(session, paste0("name", i), value = state$name[i])
+      filter_val <- state$filter_vals[[i]]
+      if (is.numeric(filter_val))
+        updateSliderInput(session, paste0("filter", i), value = filter_val)
+      if (is.character(filter_val))
+        shinyWidgets::updatePickerInput(session, paste0("filter", i), selected = filter_val)
+    }
+  }
+
   code <- eventReactive(input$button, {
     ds <- dataset()
     classes <- shinyValue("class", ncol(ds))
@@ -248,7 +285,11 @@ variableView <- function(input, output, session, dataset, dataName = "dat"){
            collapse = "\n")
   })
 
-  return(code)
+  return(list(
+    code = code,
+    get_state = get_state,
+    set_state = set_state
+  ))
 }
 
 #' @rdname variableView
